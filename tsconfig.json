@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "config": ["/config/*, /config"],
+      "handlers": ["/handlers/*", "/handlers"],
+      "utils": ["/utils/*", "/utils"],
+      "types": ["/types/*", "/types"]
+    },
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}

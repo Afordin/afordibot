@@ -1,0 +1,60 @@
+{
+  "$schema": "./node_modules/rome/configuration_schema.json",
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "indentSize": 2,
+    "lineWidth": 120,
+    "ignore": ["node_modules/**", "dist/**", "*.js"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noUselessFragments": "error"
+      },
+      "correctness": {
+        "noEmptyPattern": "warn",
+        "noUndeclaredVariables": "error"
+      },
+      "style": {
+        "noImplicitBoolean": "off",
+        "noNegationElse": "off",
+        "noShoutyConstants": "off",
+        "useBlockStatements": "off",
+        "useFragmentSyntax": "off",
+        "useShorthandArrayType": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      },
+      "nursery": {
+        "noBannedTypes": "error",
+        "noConstEnum": "error",
+        "noConstructorReturn": "error",
+        "noDistractingElements": "error",
+        "noDuplicateObjectKeys": "error",
+        "noExtraNonNullAssertion": "error",
+        "noStringCaseMismatch": "error",
+        "noUnsafeFinally": "error",
+        "noVar": "error",
+        "useCamelCase": "warn",
+        "useConst": "warn",
+        "useExhaustiveDependencies": "error"
+      }
+    },
+    "ignore": ["node_modules/**", "dist/**", "*.js"]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingComma": "all",
+      "quoteProperties": "asNeeded"
+    }
+  },
+  "files": {
+    "ignore": ["node_modules/**", "dist/**", "*.js"]
+  }
+}
