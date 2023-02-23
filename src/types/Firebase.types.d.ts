@@ -23,7 +23,7 @@ export namespace FirebaseTypes {
 	export type Aflor = '🌺' | '🌻' | '🌹' | '🥀' | '🌷' | '🌼' | '🌸' | '💐' | '🍄'
 
 	export interface AflorValues {
-		[key: string]: Aflor
+		[key: Aflor]: number
 	}
 
 	export interface AflorUsers {
