@@ -1,1 +1,1 @@
-export * from './bot.events'
+export * from './bot.handlers'

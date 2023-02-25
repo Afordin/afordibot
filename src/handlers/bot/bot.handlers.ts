@@ -5,13 +5,13 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 
-import { getRandomFlower } from 'utils/getRandomFlower'
-import { RegExp } from 'utils/regExp'
+import { validateMessages } from 'utils/validations'
+import { MessagesHandlers } from 'handlers/messages'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-export module BotEvents {
+export module BotHandlers {
 	const TIMEZONE = 'Europe/Madrid'
 	const DATE_FORMAT = 'DDMMYYYY'
 
@@ -56,16 +56,16 @@ export module BotEvents {
 				if (self) return
 				const cleanedChannel = channel.replace('#', '')
 				const cleanedMessage = message.trim().toLowerCase()
+				const validations = validateMessages(cleanedMessage)
 
-				if (cleanedMessage === '!jolines') {
+				if (validations.jolinesCommand) {
 					const jolines = await getJolines(database, cleanedChannel)
-					bot.say(channel, `Llevamos ${jolines} jolines ${getRandomFlower()}!`)
-				} else if (RegExp.jolinesUser.test(cleanedMessage)) {
-					const username = cleanedMessage.split(' ')[1].replace('@', '')
+					bot.say(channel, MessagesHandlers.totalJolines(jolines))
+				} else if (validations.jolinesUser) {
+					const username = MessagesHandlers.getUsername(cleanedMessage)
 					const jolines = await getJolines(database, cleanedChannel, username)
-					if(!jolines) return bot.say(channel, `@${username} no tiene jolines :c`)
-					bot.say(channel, `@${username} lleva ${jolines} jolines ${getRandomFlower()}!`)
-				} else if (cleanedMessage.includes('jolin') && !cleanedMessage.includes('jolines')) {
+					bot.say(channel, MessagesHandlers.userJolines(jolines, username))
+				} else if (validations.jolin) {
 					await incrementUserJolines(database, cleanedChannel, ctx.username!)
 				}
 			} catch (error) {

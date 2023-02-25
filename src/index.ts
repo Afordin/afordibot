@@ -6,7 +6,7 @@ import tmi from 'tmi.js'
 
 import { Bot } from 'config/Bot'
 import { Firebase } from 'config/Firebase'
-import { BotEvents } from 'handlers/bot'
+import { BotHandlers } from 'handlers/bot'
 
 const launch = async () => {
 	try {
@@ -14,7 +14,7 @@ const launch = async () => {
 		const bot = new tmi.Client(options)
 		const firebase = new Firebase()
 		bot.on('connected', () => console.log('[+] Bot connected'))
-		bot.on('message', BotEvents.onMessage(bot, firebase.database))
+		bot.on('message', BotHandlers.onMessage(bot, firebase.database))
 		bot.connect()
 	} catch (error) {
 		console.error(error)
