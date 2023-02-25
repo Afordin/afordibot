@@ -1,9 +1,11 @@
 import { initializeApp, FirebaseApp } from 'firebase/app'
 import { getDatabase, Database } from 'firebase/database'
+import { getAuth, Auth, signInWithEmailAndPassword } from 'firebase/auth'
 
 export class Firebase {
 	app: FirebaseApp
 	database: Database
+	auth: Auth
 
 	constructor() {
 		this.app = initializeApp({
@@ -16,5 +18,16 @@ export class Firebase {
 			appId: process.env.FIREBASE_APP_ID!,
 		})
 		this.database = getDatabase(this.app)
+		this.auth = getAuth(this.app)
+		this.signIn(this.auth)
+	}
+
+	async signIn(auth: Auth) {
+		const { user } = await signInWithEmailAndPassword(
+			auth,
+			process.env.FIREBASE_EMAIL!,
+			process.env.FIREBASE_PASSWORD!,
+		)
+		auth.updateCurrentUser(user)
 	}
 }
