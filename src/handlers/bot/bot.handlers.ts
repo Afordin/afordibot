@@ -5,8 +5,10 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 
-import { validateMessages } from 'utils/validations'
 import { MessagesHandlers } from 'handlers/messages'
+import { validateMessages } from 'utils/validations'
+import { getRandomFlower } from 'utils/getRandomEmoji'
+import { FirebaseTypes } from 'types/Firebase.types'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -49,6 +51,35 @@ export module BotHandlers {
 		}
 	}
 
+	export const incrementUserFlowers = async(database: Database, channel: string, username: string, aflor: FirebaseTypes.Aflor) => {
+		try {
+			const userKey = username.toLowerCase()
+			const date = dayjs().tz(TIMEZONE).format(DATE_FORMAT)
+
+			const totalFlowersRef = ref(database, `${channel}/aflores/total`)
+			const usersRef = ref(database, `${channel}/aflores/users/${userKey}`)
+			const datesTotalRef = ref(database, `${channel}/aflores/dates/${date}/total`)
+			const datesUsersRef = ref(database, `${channel}/aflores/dates/${date}/users/${userKey}`)
+
+			await update(totalFlowersRef, { [aflor]: increment(1) })
+			await update(datesTotalRef, { [aflor]: increment(1) })
+			await update(usersRef, { [aflor]: increment(1) })
+			await update(datesUsersRef, { [aflor]: increment(1) })
+		} catch (error) {
+			throw error
+		}
+	}
+
+	export const getAflores = async (database: Database, channel: string) => {
+		try {
+			const afloresRef = ref(database, `${channel}/aflores/total`)
+			const afloresSnapshot = await get(afloresRef)
+			return afloresSnapshot.val()
+		} catch (error) {
+			throw error
+		}
+	}
+
 	export const onMessage =
 		(bot: Client, database: Database) =>
 		async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
@@ -67,6 +98,14 @@ export module BotHandlers {
 					bot.say(channel, MessagesHandlers.userJolines(jolines, username))
 				} else if (validations.jolin) {
 					await incrementUserJolines(database, cleanedChannel, ctx.username!)
+				} else if (validations.aflorCommand) {
+					const aflores = await getAflores(database, cleanedChannel)
+					bot.say(channel, MessagesHandlers.totalAflores(aflores))
+				} else if(validations.aflorUser) {
+					const username = MessagesHandlers.getUsername(cleanedMessage)
+					const aflor = getRandomFlower()
+					await incrementUserFlowers(database, cleanedChannel, username, aflor)
+					bot.say(channel, MessagesHandlers.userAflor(aflor, ctx.username!, username))
 				}
 			} catch (error) {
 				throw error
