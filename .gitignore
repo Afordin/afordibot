@@ -1,3 +1,4 @@
 .env*
 code.txt
 node_modules
+dist
