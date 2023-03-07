@@ -1,9 +1,9 @@
-import { FirebaseTypes } from 'types/Firebase.types'
+import { AfloresTypes } from 'types/Aflores.types'
 
 export type Pig = '🐷' | '🐽' | '🐖'
 
-export const getRandomFlower = (): FirebaseTypes.Aflor => {
-	const flowers: FirebaseTypes.Aflor[] = ['🌺', '🌻', '🌹', '🥀', '🌷', '🌼', '🌸', '💐', '🍄']
+export const getRandomFlower = (): AfloresTypes.Aflor => {
+	const flowers: AfloresTypes.Aflor[] = ['🌺', '🌻', '🌹', '🥀', '🌷', '🌼', '🌸', '💐', '🍄']
 	const randomIndex = Math.floor(Math.random() * flowers.length)
 	return flowers[randomIndex]
 }

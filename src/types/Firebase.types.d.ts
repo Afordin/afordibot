@@ -1,49 +1,16 @@
-import { DateTypes } from 'types/Date.types'
+import { JolinesTypes } from 'types/Aflores.types'
+import { AfloresTypes } from 'types/Jolines.types'
 
 export namespace FirebaseTypes {
-	// Jolin Types
-	export type Jolin = number
+	export type DatabaseRef = 'users' | 'channels' | 'weekly' | 'monthly' | 'channels-users'
 
-	export interface JolinUsers {
-		[key: string]: Jolin
+	export type User = JolinesTypes.JolinesUser & AfloresTypes.AfloresUser
+
+	export interface UsersRanking {
+		[key: string]: User
 	}
 
-	export interface TotalJolines {
-		total: Jolin
-		users: JolinUsers
-	}
-
-	export interface Jolines {
-		total: Jolin
-		users: JolinUsers
-		dates: DateTypes.DateObject<TotalJolines>
-	}
-
-	// Aflor Types
-	export type Aflor = '🌺' | '🌻' | '🌹' | '🥀' | '🌷' | '🌼' | '🌸' | '💐' | '🍄'
-
-	export interface AflorValues {
-		[key: Aflor]: number
-	}
-
-	export interface AflorUsers {
-		[key: string]: AflorValues
-	}
-
-	export interface TotalAflores {
-		total: AflorValues
-		users: AflorUsers
-	}
-
-	export interface Aflores {
-		total: AflorValues
-		users: AflorUsers
-		dates: DateTypes.DateObject<TotalAflores>
-	}
-
-	// Realtime Database Types
-	export interface FirebaseDatabase {
-		jolines: Jolines
-		aflores: Aflores
+	export interface ChannelUsers {
+		[key: string]: UsersRanking
 	}
 }

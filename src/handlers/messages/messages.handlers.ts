@@ -1,4 +1,4 @@
-import { FirebaseTypes } from 'types/Firebase.types'
+import { AfloresTypes } from 'types/Aflores.types'
 import { getRandomFlower, getRandomPig } from 'utils/getRandomEmoji'
 
 export module MessagesHandlers {
@@ -11,12 +11,9 @@ export module MessagesHandlers {
 		return `@${username} lleva ${jolines} jolines ${getRandomPig()}!`
 	}
 
-	export const totalAflores = (aflores: FirebaseTypes.AflorValues) => {
-		const total = Object.values(aflores).reduce((acc, curr) => acc + curr, 0)
-		return `Llevamos ${total} aflores ${getRandomFlower()}!`
-	}
+	export const totalAflores = (aflores: number) => `Llevamos ${aflores} aflores ${getRandomFlower()}!`
 
-	export const userAflor = (aflor: FirebaseTypes.Aflor, fromUser: string, toUser: string) => {
+	export const userAflor = (aflor: AfloresTypes.Aflor, fromUser: string, toUser: string) => {
 		return `Toma @${toUser} una aflor ${aflor} de @${fromUser}!`
 	}
 }
