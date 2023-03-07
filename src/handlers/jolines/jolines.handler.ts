@@ -1,7 +1,8 @@
 import { Database, get, increment, ref, update } from 'firebase/database'
 import { MessagesHandlers } from 'handlers/messages'
-import { ChatUserstate, Client } from 'tmi.js'
+import { ChatUserstate } from 'tmi.js'
 import { RegExpModule } from 'utils/regExp'
+import { Bot } from 'config/Bot'
 
 export module JolinesHandler {
 	export const incrementUserJolines = async (database: Database, channel: string, username: string) => {
@@ -54,8 +55,7 @@ export module JolinesHandler {
 		}
 
 	export const onJolinesCommand =
-		(bot: Client, database: Database) =>
-		async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
+		(bot: Bot, database: Database) => async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
 			try {
 				const cleanedMessage = message.trim().toLowerCase()
 				const isNotJolines = cleanedMessage !== '!jolines'
@@ -63,15 +63,14 @@ export module JolinesHandler {
 
 				const cleanedChannel = channel.replace('#', '')
 				const jolines = await getJolines(database, cleanedChannel)
-				bot.say(channel, MessagesHandlers.totalJolines(jolines))
+				bot.client.say(channel, MessagesHandlers.totalJolines(jolines))
 			} catch (error) {
 				throw error
 			}
 		}
 
 	export const onJolinesUserCommand =
-		(bot: Client, database: Database) =>
-		async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
+		(bot: Bot, database: Database) => async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
 			try {
 				const cleanedMessage = message.trim().toLowerCase()
 				const isJolinesUser = RegExpModule.jolinesUser.test(cleanedMessage)
@@ -80,7 +79,7 @@ export module JolinesHandler {
 				const cleanedChannel = channel.replace('#', '')
 				const username = MessagesHandlers.getUsername(cleanedMessage)
 				const jolines = await getJolines(database, cleanedChannel, username)
-				bot.say(channel, MessagesHandlers.userJolines(jolines, username))
+				bot.client.say(channel, MessagesHandlers.userJolines(jolines, username))
 			} catch (error) {}
 		}
 }

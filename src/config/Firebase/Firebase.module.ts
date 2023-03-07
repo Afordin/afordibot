@@ -23,11 +23,7 @@ export class Firebase {
 	}
 
 	async signIn(auth: Auth) {
-		const { user } = await signInWithEmailAndPassword(
-			auth,
-			process.env.FIREBASE_EMAIL!,
-			process.env.FIREBASE_PASSWORD!,
-		)
+		const { user } = await signInWithEmailAndPassword(auth, process.env.FIREBASE_EMAIL!, process.env.FIREBASE_PASSWORD!)
 		auth.updateCurrentUser(user)
 	}
 }

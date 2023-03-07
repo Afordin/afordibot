@@ -1,8 +1,9 @@
 import { Database, get, increment, ref, update } from 'firebase/database'
 import { MessagesHandlers } from 'handlers/messages'
-import { ChatUserstate, Client } from 'tmi.js'
+import { ChatUserstate } from 'tmi.js'
 import { getRandomFlower } from 'utils/getRandomEmoji'
 import { RegExpModule } from 'utils/regExp'
+import { Bot } from 'config/Bot'
 
 export module AfloresHandler {
 	export const incrementUserFlowers = async (database: Database, channel: string, username: string, aflor: string) => {
@@ -40,8 +41,7 @@ export module AfloresHandler {
 	}
 
 	export const onAflorUser =
-		(bot: Client, database: Database) =>
-		async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
+		(bot: Bot, database: Database) => async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
 			try {
 				const cleanedMessage = message.trim().toLowerCase()
 				const isAflorUser = RegExpModule.alforUser.test(cleanedMessage)
@@ -51,21 +51,20 @@ export module AfloresHandler {
 				const username = MessagesHandlers.getUsername(cleanedMessage)
 				const aflor = getRandomFlower()
 				await incrementUserFlowers(database, cleanedChannel, username, aflor)
-				bot.say(channel, MessagesHandlers.userAflor(aflor, ctx.username!, username))
+				bot.client.say(channel, MessagesHandlers.userAflor(aflor, ctx.username!, username))
 			} catch (error) {
 				throw error
 			}
 		}
 
 	export const onAfloresCommand =
-		(bot: Client, database: Database) =>
-		async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
+		(bot: Bot, database: Database) => async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
 			const cleanedMessage = message.trim().toLowerCase()
 			const isNotAflores = cleanedMessage !== '!aflores'
 			if (self || isNotAflores) return
 
 			const cleanedChannel = channel.replace('#', '')
 			const aflores = await getAflores(database, cleanedChannel)
-			bot.say(channel, MessagesHandlers.totalAflores(aflores))
+			bot.client.say(channel, MessagesHandlers.totalAflores(aflores))
 		}
 }
