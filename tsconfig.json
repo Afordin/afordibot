@@ -4,6 +4,7 @@
     "paths": {
       "config": ["/config/*, /config"],
       "handlers": ["/handlers/*", "/handlers"],
+      "services": ["/services/*", "/services"],
       "utils": ["/utils/*", "/utils"],
       "types": ["/types/*", "/types"]
     },

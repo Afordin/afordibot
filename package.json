@@ -20,6 +20,7 @@
   "_moduleAliases": {
     "config": "dist/config",
     "handlers": "dist/handlers",
+    "services": "dist/services",
     "utils": "dist/utils"
   },
   "dependencies": {
