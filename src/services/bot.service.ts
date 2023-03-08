@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Database, ref, update } from 'firebase/database'
 import { BotTypes } from 'types/Bot.types'
 
 export module BotServices {
@@ -17,7 +18,38 @@ export module BotServices {
 			})
 			return data
 		} catch (error) {
+			console.log('[!] Error getting token response', error)
 			throw error
+		}
+	}
+
+	export const getUserData = async (accessToken: string, username: string) => {
+		try {
+			const { data } = await axios<BotTypes.UserData>({
+				method: 'GET',
+				url: `${process.env.USER_DATA_ENDPOINT!}?login=${username}`,
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+					'Client-ID': process.env.BOT_ID!,
+				},
+			})
+			if (data.data.length === 0) throw new Error('User not found')
+			return data.data[0] as BotTypes.UserDataResponse
+		} catch (error) {
+			console.log('[!] Error getting user data', error)
+			throw error
+		}
+	}
+
+	export const updateUserImage = async (database: Database, accessToken: string, userKey: string, channel: string) => {
+		try {
+			const { profile_image_url: imageUrl } = await BotServices.getUserData(accessToken, userKey)
+			await update(ref(database, `users/${userKey}`), { imageUrl })
+			await update(ref(database, `weekly/${userKey}`), { imageUrl })
+			await update(ref(database, `monthly/${userKey}`), { imageUrl })
+			await update(ref(database, `channels-users/${channel}/${userKey}`), { imageUrl })
+		} catch (error) {
+			console.log('[!] Error updating user image', error)
 		}
 	}
 }

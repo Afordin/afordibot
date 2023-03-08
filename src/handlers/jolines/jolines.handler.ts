@@ -3,17 +3,25 @@ import { MessagesHandlers } from 'handlers/messages'
 import { ChatUserstate } from 'tmi.js'
 import { RegExpModule } from 'utils/regExp'
 import { Bot } from 'config/Bot'
+import { BotServices } from 'services/bot.service'
 
 export module JolinesHandler {
-	export const incrementUserJolines = async (database: Database, channel: string, username: string) => {
+	export const incrementUserJolines = async (
+		accessToken: string,
+		database: Database,
+		channel: string,
+		username: string,
+	) => {
 		try {
 			const userKey = username.toLowerCase()
-
 			const userRef = ref(database, `users/${userKey}`)
 			const channelRef = ref(database, `channels/${channel}`)
 			const monthlyRef = ref(database, `monthly/${userKey}`)
 			const weeklyRef = ref(database, `weekly/${userKey}`)
 			const channelUsersRef = ref(database, `channels-users/${channel}/${userKey}`)
+
+			const weeklyExists = (await get(weeklyRef)).exists()
+			if (!weeklyExists) await BotServices.updateUserImage(database, accessToken, userKey, channel)
 
 			await update(userRef, { jolines: increment(1) })
 			await update(channelRef, { jolines: increment(1) })
@@ -41,14 +49,14 @@ export module JolinesHandler {
 	}
 
 	export const onJolin =
-		(database: Database) => async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
+		(bot: Bot, database: Database) => async (channel: string, ctx: ChatUserstate, message: string, self: boolean) => {
 			try {
 				const cleanedMessage = message.trim().toLowerCase()
 				const isNotJolin = !cleanedMessage.includes('jolin') || cleanedMessage.includes('jolines')
 				if (self || isNotJolin) return
 
 				const cleanedChannel = channel.replace('#', '')
-				await incrementUserJolines(database, cleanedChannel, ctx.username!)
+				await incrementUserJolines(bot.tokenResponse.access_token, database, cleanedChannel, ctx.username!)
 			} catch (error) {
 				throw error
 			}
@@ -80,6 +88,8 @@ export module JolinesHandler {
 				const username = MessagesHandlers.getUsername(cleanedMessage)
 				const jolines = await getJolines(database, cleanedChannel, username)
 				bot.client.say(channel, MessagesHandlers.userJolines(jolines, username))
-			} catch (error) {}
+			} catch (error) {
+				throw error
+			}
 		}
 }

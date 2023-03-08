@@ -13,14 +13,14 @@ const launch = async () => {
 		const firebase = new Firebase()
 		const bot = new Bot(await BotServices.getTokenResponse())
 		bot.client.on('connected', () => console.log('[+] Bot connected'))
-		bot.client.on('message', JolinesHandler.onJolin(firebase.database))
+		bot.client.on('message', JolinesHandler.onJolin(bot, firebase.database))
 		bot.client.on('message', JolinesHandler.onJolinesCommand(bot, firebase.database))
 		bot.client.on('message', JolinesHandler.onJolinesUserCommand(bot, firebase.database))
 		bot.client.on('message', AfloresHandler.onAflorUser(bot, firebase.database))
 		bot.client.on('message', AfloresHandler.onAfloresCommand(bot, firebase.database))
 		bot.client.connect()
 	} catch (error) {
-		console.error(error)
+		// console.error(error)
 	}
 }
 

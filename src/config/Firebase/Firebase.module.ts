@@ -23,7 +23,15 @@ export class Firebase {
 	}
 
 	async signIn(auth: Auth) {
-		const { user } = await signInWithEmailAndPassword(auth, process.env.FIREBASE_EMAIL!, process.env.FIREBASE_PASSWORD!)
-		auth.updateCurrentUser(user)
+		try {
+			const { user } = await signInWithEmailAndPassword(
+				auth,
+				process.env.FIREBASE_EMAIL!,
+				process.env.FIREBASE_PASSWORD!,
+			)
+			auth.updateCurrentUser(user)
+		} catch (error) {
+			throw error
+		}
 	}
 }
