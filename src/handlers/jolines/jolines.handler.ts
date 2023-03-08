@@ -23,6 +23,9 @@ export module JolinesHandler {
 			const weeklyExists = (await get(weeklyRef)).exists()
 			if (!weeklyExists) await BotServices.updateUserImage(database, accessToken, userKey, channel)
 
+			const channelExists = (await get(channelRef)).exists()
+			if (!channelExists) await BotServices.updateChannelImage(database, accessToken, channel)
+
 			await update(userRef, { jolines: increment(1) })
 			await update(channelRef, { jolines: increment(1) })
 			await update(monthlyRef, { jolines: increment(1) })

@@ -44,14 +44,22 @@ export module BotServices {
 	export const updateUserImage = async (database: Database, accessToken: string, userKey: string, channel: string) => {
 		try {
 			const { profile_image_url: imageUrl } = await BotServices.getUserData(accessToken, userKey)
-			const { profile_image_url: channelImageUrl } = await BotServices.getUserData(accessToken, channel)
 			await update(ref(database, `users/${userKey}`), { imageUrl })
 			await update(ref(database, `weekly/${userKey}`), { imageUrl })
 			await update(ref(database, `monthly/${userKey}`), { imageUrl })
-			await update(ref(database, `channels/${channel}`), { imageUrl: channelImageUrl })
 			await update(ref(database, `channels-users/${channel}/${userKey}`), { imageUrl })
 		} catch (error) {
 			console.log('[!] Error updating user image', error)
+			throw error
+		}
+	}
+
+	export const updateChannelImage = async (database: Database, accessToken: string, channel: string) => {
+		try {
+			const { profile_image_url: imageUrl } = await BotServices.getUserData(accessToken, channel)
+			await update(ref(database, `channels/${channel}`), { imageUrl })
+		} catch (error) {
+			console.log('[!] Error updating channel image', error)
 			throw error
 		}
 	}

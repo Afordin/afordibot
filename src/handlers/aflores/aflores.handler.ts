@@ -26,6 +26,9 @@ export module AfloresHandler {
 			const weeklyExists = (await get(weeklyRef)).exists()
 			if (!weeklyExists) await BotServices.updateUserImage(database, accessToken, userKey, channel)
 
+			const channelExists = (await get(channelRef)).exists()
+			if (!channelExists) await BotServices.updateChannelImage(database, accessToken, channel)
+
 			await update(userRef, { [aflor]: increment(1), total: increment(1) })
 			await update(channelRef, { [aflor]: increment(1), total: increment(1) })
 			await update(monthlyRef, { [aflor]: increment(1), total: increment(1) })
