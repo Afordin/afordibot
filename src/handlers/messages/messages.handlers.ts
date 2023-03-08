@@ -16,7 +16,10 @@ export module MessagesHandlers {
 		return `@${username} lleva ${jolines} jolines ${getRandomPig()}!`
 	}
 
-	export const totalAflores = (aflores: number) => `Llevamos ${aflores} aflores ${getRandomFlower()}!`
+	export const totalAflores = (aflores: number) => {
+		if (!aflores) return 'No tenemos aflores :c'
+		return `Llevamos ${aflores} aflores ${getRandomFlower()}!`
+	}
 
 	export const userAflor = (aflor: AfloresTypes.Aflor, fromUser: string, toUser: string) => {
 		return `Toma @${toUser} una aflor ${aflor} de @${fromUser}!`
