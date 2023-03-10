@@ -20,7 +20,7 @@ const launch = async () => {
 		bot.client.on('message', AfloresHandler.onAfloresCommand(bot, firebase.database))
 		bot.client.connect()
 	} catch (error) {
-		// console.error(error)
+		console.error(error)
 	}
 }
 
