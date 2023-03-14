@@ -31,6 +31,7 @@ export class Firebase {
 			)
 			auth.updateCurrentUser(user)
 		} catch (error) {
+			console.log('FirebaseClass:signIn -->', error)
 			throw error
 		}
 	}

@@ -3,7 +3,7 @@ import { MessagesHandlers } from 'handlers/messages'
 import { ChatUserstate } from 'tmi.js'
 import { RegExpModule } from 'utils/regExp'
 import { Bot } from 'config/Bot'
-import { BotServices } from 'services/bot.service'
+import { BotService } from 'services/bot.service'
 
 export module JolinesHandler {
 	export const incrementUserJolines = async (
@@ -21,10 +21,10 @@ export module JolinesHandler {
 			const channelUsersRef = ref(database, `channels-users/${channel}/${userKey}`)
 
 			const weeklyExists = (await get(weeklyRef)).exists()
-			if (!weeklyExists) await BotServices.updateUserImage(database, accessToken, userKey, channel)
+			if (!weeklyExists) await BotService.updateUserImage(database, accessToken, userKey, channel)
 
 			const channelExists = (await get(channelRef)).exists()
-			if (!channelExists) await BotServices.updateChannelImage(database, accessToken, channel)
+			if (!channelExists) await BotService.updateChannelImage(database, accessToken, channel)
 
 			await update(userRef, { jolines: increment(1) })
 			await update(channelRef, { jolines: increment(1) })
@@ -32,6 +32,7 @@ export module JolinesHandler {
 			await update(weeklyRef, { jolines: increment(1) })
 			await update(channelUsersRef, { jolines: increment(1) })
 		} catch (error) {
+			console.log('JolinesHandler:incrementUserJolines -->', error)
 			throw error
 		}
 	}
@@ -47,6 +48,7 @@ export module JolinesHandler {
 			const jolinesSnapshot = await get(jolinesRef)
 			return jolinesSnapshot.val()
 		} catch (error) {
+			console.log('JolinesHandler:getJolines -->', error)
 			throw error
 		}
 	}
@@ -61,6 +63,7 @@ export module JolinesHandler {
 				const cleanedChannel = channel.replace('#', '')
 				await incrementUserJolines(bot.tokenResponse.access_token, database, cleanedChannel, ctx.username!)
 			} catch (error) {
+				console.log('JolinesHandler:onJolin -->', error)
 				throw error
 			}
 		}
@@ -76,6 +79,7 @@ export module JolinesHandler {
 				const jolines = await getJolines(database, cleanedChannel)
 				bot.client.say(channel, MessagesHandlers.totalJolines(jolines))
 			} catch (error) {
+				console.log('JolinesHandler:onJolinesCommand -->', error)
 				throw error
 			}
 		}
@@ -92,6 +96,7 @@ export module JolinesHandler {
 				const jolines = await getJolines(database, cleanedChannel, username)
 				bot.client.say(channel, MessagesHandlers.userJolines(jolines, username))
 			} catch (error) {
+				console.log('JolinesHandler:onJolinesUserCommand -->', error)
 				throw error
 			}
 		}

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Database, ref, update } from 'firebase/database'
 import { BotTypes } from 'types/Bot.types'
 
-export module BotServices {
+export module BotService {
 	export const getTokenResponse = async () => {
 		try {
 			const { data } = await axios<BotTypes.TokenResponse>({
@@ -18,7 +18,7 @@ export module BotServices {
 			})
 			return data
 		} catch (error) {
-			console.log('[!] Error getting token response', error)
+			console.log('BotService:getTokenResponse -->', error)
 			throw error
 		}
 	}
@@ -36,30 +36,30 @@ export module BotServices {
 			if (data.data.length === 0) throw new Error('User not found')
 			return data.data[0] as BotTypes.UserDataResponse
 		} catch (error) {
-			console.log('[!] Error getting user data', error)
+			console.log('BotService:getUserData -->', error)
 			throw error
 		}
 	}
 
 	export const updateUserImage = async (database: Database, accessToken: string, userKey: string, channel: string) => {
 		try {
-			const { profile_image_url: imageUrl } = await BotServices.getUserData(accessToken, userKey)
+			const { profile_image_url: imageUrl } = await BotService.getUserData(accessToken, userKey)
 			await update(ref(database, `users/${userKey}`), { imageUrl })
 			await update(ref(database, `weekly/${userKey}`), { imageUrl })
 			await update(ref(database, `monthly/${userKey}`), { imageUrl })
 			await update(ref(database, `channels-users/${channel}/${userKey}`), { imageUrl })
 		} catch (error) {
-			console.log('[!] Error updating user image', error)
+			console.log('BotService:updateUserImage -->', error)
 			throw error
 		}
 	}
 
 	export const updateChannelImage = async (database: Database, accessToken: string, channel: string) => {
 		try {
-			const { profile_image_url: imageUrl } = await BotServices.getUserData(accessToken, channel)
+			const { profile_image_url: imageUrl } = await BotService.getUserData(accessToken, channel)
 			await update(ref(database, `channels/${channel}`), { imageUrl })
 		} catch (error) {
-			console.log('[!] Error updating channel image', error)
+			console.log('BotService:updateChannelImage -->', error)
 			throw error
 		}
 	}

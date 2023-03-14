@@ -12,6 +12,13 @@ export class Bot {
 
 	createBotOptions = (accessToken: string) => {
 		return {
+			connection: {
+				secure: true,
+				reconnect: true,
+			},
+			options: {
+				debug: true,
+			},
 			identity: {
 				username: process.env.TOKEN_ENDPOINT!,
 				password: `oauth:${accessToken}`,

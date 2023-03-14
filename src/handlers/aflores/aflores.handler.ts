@@ -4,7 +4,7 @@ import { ChatUserstate } from 'tmi.js'
 import { getRandomFlower } from 'utils/getRandomEmoji'
 import { RegExpModule } from 'utils/regExp'
 import { Bot } from 'config/Bot'
-import { BotServices } from 'services/bot.service'
+import { BotService } from 'services/bot.service'
 import { AfloresTypes } from 'types/Aflores.types'
 
 export module AfloresHandler {
@@ -24,10 +24,10 @@ export module AfloresHandler {
 			const channelUsersRef = ref(database, `channels-users/${channel}/${userKey}/aflores`)
 
 			const weeklyExists = (await get(weeklyRef)).exists()
-			if (!weeklyExists) await BotServices.updateUserImage(database, accessToken, userKey, channel)
+			if (!weeklyExists) await BotService.updateUserImage(database, accessToken, userKey, channel)
 
 			const channelExists = (await get(channelRef)).exists()
-			if (!channelExists) await BotServices.updateChannelImage(database, accessToken, channel)
+			if (!channelExists) await BotService.updateChannelImage(database, accessToken, channel)
 
 			await update(userRef, { [aflor]: increment(1), total: increment(1) })
 			await update(channelRef, { [aflor]: increment(1), total: increment(1) })
@@ -35,6 +35,7 @@ export module AfloresHandler {
 			await update(weeklyRef, { [aflor]: increment(1), total: increment(1) })
 			await update(channelUsersRef, { [aflor]: increment(1), total: increment(1) })
 		} catch (error) {
+			console.log('AfloresHandler:incrementUserFlowers -->', error)
 			throw error
 		}
 	}
@@ -50,6 +51,7 @@ export module AfloresHandler {
 			const afloresSnapshot = await get(afloresRef)
 			return afloresSnapshot.val()
 		} catch (error) {
+			console.log('AfloresHandler:getAflores -->', error)
 			throw error
 		}
 	}
@@ -67,6 +69,7 @@ export module AfloresHandler {
 				await incrementUserFlowers(bot.tokenResponse.access_token, database, cleanedChannel, username, aflor)
 				bot.client.say(channel, MessagesHandlers.userAflor(aflor, ctx.username!, username))
 			} catch (error) {
+				console.log('AfloresHandler:onAflorUser -->', error)
 				throw error
 			}
 		}
@@ -82,6 +85,7 @@ export module AfloresHandler {
 				const aflores = await getAflores(database, cleanedChannel)
 				bot.client.say(channel, MessagesHandlers.totalAflores(aflores))
 			} catch (error) {
+				console.log('AfloresHandler:onAfloresCommand -->', error)
 				throw error
 			}
 		}
