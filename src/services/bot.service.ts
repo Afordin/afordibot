@@ -50,7 +50,6 @@ export module BotService {
 			await update(ref(database, `channels-users/${channel}/${userKey}`), { imageUrl })
 		} catch (error) {
 			console.log('BotService:updateUserImage -->', error)
-			throw error
 		}
 	}
 
@@ -60,7 +59,6 @@ export module BotService {
 			await update(ref(database, `channels/${channel}`), { imageUrl })
 		} catch (error) {
 			console.log('BotService:updateChannelImage -->', error)
-			throw error
 		}
 	}
 }

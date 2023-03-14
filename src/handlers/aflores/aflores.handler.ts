@@ -36,7 +36,6 @@ export module AfloresHandler {
 			await update(channelUsersRef, { [aflor]: increment(1), total: increment(1) })
 		} catch (error) {
 			console.log('AfloresHandler:incrementUserFlowers -->', error)
-			throw error
 		}
 	}
 
@@ -52,7 +51,6 @@ export module AfloresHandler {
 			return afloresSnapshot.val()
 		} catch (error) {
 			console.log('AfloresHandler:getAflores -->', error)
-			throw error
 		}
 	}
 
@@ -70,7 +68,6 @@ export module AfloresHandler {
 				bot.client.say(channel, MessagesHandlers.userAflor(aflor, ctx.username!, username))
 			} catch (error) {
 				console.log('AfloresHandler:onAflorUser -->', error)
-				throw error
 			}
 		}
 
@@ -86,7 +83,6 @@ export module AfloresHandler {
 				bot.client.say(channel, MessagesHandlers.totalAflores(aflores))
 			} catch (error) {
 				console.log('AfloresHandler:onAfloresCommand -->', error)
-				throw error
 			}
 		}
 }

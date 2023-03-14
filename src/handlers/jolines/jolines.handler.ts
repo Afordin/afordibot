@@ -33,7 +33,6 @@ export module JolinesHandler {
 			await update(channelUsersRef, { jolines: increment(1) })
 		} catch (error) {
 			console.log('JolinesHandler:incrementUserJolines -->', error)
-			throw error
 		}
 	}
 
@@ -49,7 +48,6 @@ export module JolinesHandler {
 			return jolinesSnapshot.val()
 		} catch (error) {
 			console.log('JolinesHandler:getJolines -->', error)
-			throw error
 		}
 	}
 
@@ -64,7 +62,6 @@ export module JolinesHandler {
 				await incrementUserJolines(bot.tokenResponse.access_token, database, cleanedChannel, ctx.username!)
 			} catch (error) {
 				console.log('JolinesHandler:onJolin -->', error)
-				throw error
 			}
 		}
 
@@ -80,7 +77,6 @@ export module JolinesHandler {
 				bot.client.say(channel, MessagesHandlers.totalJolines(jolines))
 			} catch (error) {
 				console.log('JolinesHandler:onJolinesCommand -->', error)
-				throw error
 			}
 		}
 
@@ -97,7 +93,6 @@ export module JolinesHandler {
 				bot.client.say(channel, MessagesHandlers.userJolines(jolines, username))
 			} catch (error) {
 				console.log('JolinesHandler:onJolinesUserCommand -->', error)
-				throw error
 			}
 		}
 }
