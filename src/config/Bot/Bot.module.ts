@@ -16,9 +16,6 @@ export class Bot {
 				secure: true,
 				reconnect: true,
 			},
-			options: {
-				debug: true,
-			},
 			identity: {
 				username: process.env.TOKEN_ENDPOINT!,
 				password: `oauth:${accessToken}`,
