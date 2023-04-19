@@ -2,11 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "config": ["/config/*, /config"],
-      "handlers": ["/handlers/*", "/handlers"],
-      "services": ["/services/*", "/services"],
-      "utils": ["/utils/*", "/utils"],
-      "types": ["/types/*", "/types"]
+      "application": ["/application/*, /application"],
+      "domain": ["/domain/*", "/domain"],
+      "infrastructure": ["/infrastructure/*", "/infrastructure"]
     },
     "target": "ESNext",
     "moduleResolution": "node",

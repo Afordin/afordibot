@@ -18,10 +18,9 @@
     "rome:lint:check": "rome check ."
   },
   "_moduleAliases": {
-    "config": "dist/config",
-    "handlers": "dist/handlers",
-    "services": "dist/services",
-    "utils": "dist/utils"
+    "application": "dist/application",
+    "domain": "dist/domain",
+    "infrastructure": "dist/infrastructure"
   },
   "dependencies": {
     "awilix": "^8.0.1",
