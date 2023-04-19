@@ -4,7 +4,8 @@
     "paths": {
       "application": ["/application/*, /application"],
       "domain": ["/domain/*", "/domain"],
-      "infrastructure": ["/infrastructure/*", "/infrastructure"]
+      "infrastructure": ["/infrastructure/*", "/infrastructure"],
+      "types": ["/types/*", "/types"]
     },
     "target": "ESNext",
     "moduleResolution": "node",
