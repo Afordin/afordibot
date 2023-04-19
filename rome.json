@@ -27,7 +27,8 @@
         "useShorthandArrayType": "error"
       },
       "suspicious": {
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noExplicitAny": "off"
       },
       "nursery": {
         "noBannedTypes": "error",
@@ -39,7 +40,7 @@
         "noStringCaseMismatch": "error",
         "noUnsafeFinally": "error",
         "noVar": "error",
-        "useCamelCase": "warn",
+        "useCamelCase": "off",
         "useConst": "warn",
         "useExhaustiveDependencies": "error"
       }
