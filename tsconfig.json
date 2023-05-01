@@ -19,7 +19,7 @@
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "isolatedModules": true,
     "outDir": "./dist"
   },
