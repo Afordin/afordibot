@@ -45,7 +45,7 @@
         "useExhaustiveDependencies": "error"
       }
     },
-    "ignore": ["node_modules/**", "dist/**", "*.js"]
+    "ignore": ["node_modules/**", "dist/**", "*.js", "*.test.ts"]
   },
   "javascript": {
     "formatter": {
