@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { describe, test, expect } from 'vitest'
-import { User } from '../../../domain/user/User'
+import { User } from 'domain/user/User'
 
 describe('Instantiate user entity', () => {
 	const VALID_USER = { username: 'afordibot', jolines: 0, aflores: { total: 0 } }

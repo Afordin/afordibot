@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { describe, test, expect } from 'vitest'
-import { EmojiService } from '../../../domain/services/emoji'
+import { EmojiService } from 'domain/services/emoji'
 
 describe('Instantiate emoji service', () => {
 	test('should be a function', () => {

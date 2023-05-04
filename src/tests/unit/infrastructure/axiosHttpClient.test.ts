@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest'
-import { AxiosHttpClient } from '../../../infrastructure/services/axiosHttpClient'
+import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 
 describe('Instantiate axios http client', () => {
 	let axiosHttpClient: AxiosHttpClient
