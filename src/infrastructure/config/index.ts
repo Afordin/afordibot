@@ -1,7 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
-
-const config = {
+export const config = {
 	firebase: {
 		credential: {
 			projectId: process.env.FIREBASE_PROJECT_ID!,
@@ -27,5 +24,3 @@ const config = {
 		channels: process.env.BOT_CHANNELS!.split(' '),
 	},
 }
-
-export { config }
