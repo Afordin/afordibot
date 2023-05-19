@@ -5,7 +5,7 @@ import { Dependencies } from 'types/container'
 export class RestHelixClient {
 	private _httpClient: Dependencies['httpClient']
 
-	constructor({ httpClient }: Dependencies) {
+	constructor({ httpClient }: Pick<Dependencies, 'httpClient'>) {
 		this._httpClient = httpClient
 	}
 
