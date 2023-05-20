@@ -1,6 +1,6 @@
 import { AflorValue } from 'domain/types/Aflor'
 
-interface UserEntity {
+export interface UserEntity {
 	username: string
 	jolines: number
 	aflores: AflorValue
