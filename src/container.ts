@@ -4,6 +4,7 @@ import axios from 'axios'
 import { EmojiService } from 'domain/services/emoji'
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
+import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { userDocumentParser } from 'infrastructure/persistance/firebase/user/userDocumentParser'
 
@@ -18,6 +19,7 @@ container.register({
 	emojiService: asClass(EmojiService).singleton(),
 	httpClient: asClass(AxiosHttpClient),
 	restHelixClient: asClass(RestHelixClient),
+	commandValidator: asClass(CommandValidator),
 	dbHandler: asClass(FirebaseHandler).singleton(),
 	userDocumentParser: asFunction(userDocumentParser),
 })
