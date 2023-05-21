@@ -7,6 +7,7 @@ import { RestHelixClient } from 'infrastructure/services/restHelixClient'
 import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { userDocumentParser } from 'infrastructure/persistance/firebase/user/userDocumentParser'
+import { UserRepository } from 'infrastructure/persistance/firebase/user/userRepository'
 
 import type { Dependencies } from 'types/container'
 
@@ -22,4 +23,5 @@ container.register({
 	commandValidator: asClass(CommandValidator),
 	dbHandler: asClass(FirebaseHandler).singleton(),
 	userDocumentParser: asFunction(userDocumentParser),
+	userRepository: asClass(UserRepository),
 })
