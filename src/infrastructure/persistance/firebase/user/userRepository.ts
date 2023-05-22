@@ -1,7 +1,12 @@
-import { User } from 'domain/user/User'
 import { UserEntity } from 'domain/types/User'
 import { Dependencies } from 'types/container'
 import { BaseRepository } from '../common/baseRepository'
+import {
+	FindByUsername,
+	FindByUsernameAndChannel,
+	SaveByUsername,
+	SaveByUsernameAndChannel,
+} from 'infrastructure/types/firebase'
 
 export class UserRepository extends BaseRepository {
 	private _userDocumentParser: Dependencies['userDocumentParser']
@@ -11,19 +16,39 @@ export class UserRepository extends BaseRepository {
 		this._userDocumentParser = userDocumentParser
 	}
 
-	public async findByUsername(username: string) {
+	public async findByUsername({ username, collection }: FindByUsername) {
 		try {
-			const userData = await this._find<Omit<UserEntity, 'username'>>(`users/${username}`)
+			const userData = await this._find<Omit<UserEntity, 'username'>>(`${collection}/${username}`)
 			return userData && this._userDocumentParser.toDomain({ username, ...userData })
 		} catch (error: any) {
 			throw new Error(error)
 		}
 	}
 
-	public async save(user: User) {
+	public async findByUsernameAndChannel({ username, channel }: FindByUsernameAndChannel) {
+		try {
+			const collection = `channels-users/${channel}/${username}`
+			const userData = await this._find<Omit<UserEntity, 'username'>>(collection)
+			return userData && this._userDocumentParser.toDomain({ username, ...userData })
+		} catch (error: any) {
+			throw new Error(error)
+		}
+	}
+
+	public async saveByUsername({ user, collection }: SaveByUsername) {
 		try {
 			const { username, ...data } = this._userDocumentParser.toDocument(user)
-			await this._save(`users/${username}`, data)
+			await this._save(`${collection}/${username}`, data)
+		} catch (error: any) {
+			throw new Error(error)
+		}
+	}
+
+	public async saveByUsernameAndChannel({ user, channel }: SaveByUsernameAndChannel) {
+		try {
+			const { username, ...data } = this._userDocumentParser.toDocument(user)
+			const collection = `channels-users/${channel}/${username}`
+			await this._save(collection, data)
 		} catch (error: any) {
 			throw new Error(error)
 		}

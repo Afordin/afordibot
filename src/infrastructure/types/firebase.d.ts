@@ -11,3 +11,24 @@ export interface UserDocumentParser {
 	toDomain: (user: UserEntity) => User
 	toDocument: (user: User) => UserEntity
 }
+
+// User repository
+export interface FindByUsername {
+	username: string
+	collection: 'users' | 'channels'
+}
+
+export interface FindByUsernameAndChannel {
+	username: string
+	channel: string
+}
+
+export interface SaveByUsername {
+	user: User
+	collection: 'users' | 'channels'
+}
+
+export interface SaveByUsernameAndChannel {
+	user: User
+	channel: string
+}
