@@ -1,6 +1,7 @@
+import { InvalidUserError, INVALID_USERNAME, INVALID_JOLINES, INVALID_AFLORES } from './errors/invalidUserError'
 import { AflorValue } from 'domain/types/Aflor'
 import { UserEntity } from 'domain/types/User'
-import { InvalidUserError, INVALID_USERNAME, INVALID_JOLINES, INVALID_AFLORES } from './errors/invalidUserError'
+import { Aflor } from 'domain/types/Emoji'
 
 export class User implements UserEntity {
 	private _username: string
@@ -63,5 +64,15 @@ export class User implements UserEntity {
 
 	private _isPositiveInteger(value: number) {
 		return typeof value === 'number' && Number.isFinite(value) && Number.isInteger(value) && value >= 0
+	}
+
+	public incrementJolines() {
+		this._jolines++
+	}
+
+	public incrementAflores(aflor: Aflor) {
+		this._aflores.total++
+		if (!this._aflores[aflor]) this._aflores[aflor] = 1
+		else this._aflores[aflor]!++
 	}
 }

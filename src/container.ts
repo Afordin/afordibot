@@ -27,3 +27,5 @@ container.register({
 	userRepository: asClass(UserRepository),
 	userGenerator: asClass(UserGeneratorService),
 })
+
+export { container }
