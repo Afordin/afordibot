@@ -6,6 +6,7 @@ import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { UserDocumentParser } from 'infrastructure/types/firebase'
 import { UserRepository } from 'infrastructure/persistance/firebase/user/userRepository'
+import { UserGeneratorService } from 'domain/services/userGenerator'
 
 export interface Dependencies {
 	axios: AxiosStatic
@@ -16,4 +17,5 @@ export interface Dependencies {
 	dbHandler: FirebaseHandler
 	userDocumentParser: UserDocumentParser
 	userRepository: UserRepository
+	userGenerator: UserGeneratorService
 }

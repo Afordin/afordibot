@@ -8,6 +8,7 @@ import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { userDocumentParser } from 'infrastructure/persistance/firebase/user/userDocumentParser'
 import { UserRepository } from 'infrastructure/persistance/firebase/user/userRepository'
+import { UserGeneratorService } from 'domain/services/userGenerator'
 
 import type { Dependencies } from 'types/container'
 
@@ -24,4 +25,5 @@ container.register({
 	dbHandler: asClass(FirebaseHandler).singleton(),
 	userDocumentParser: asFunction(userDocumentParser),
 	userRepository: asClass(UserRepository),
+	userGenerator: asClass(UserGeneratorService),
 })
