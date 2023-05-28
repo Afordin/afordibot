@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
+      "src/*": ["*"],
       "application": ["/application/*, /application"],
       "domain": ["/domain/*", "/domain"],
       "infrastructure": ["/infrastructure/*", "/infrastructure"],

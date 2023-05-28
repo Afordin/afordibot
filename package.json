@@ -18,6 +18,7 @@
     "rome:lint:check": "rome check ."
   },
   "_moduleAliases": {
+    "src": "dist",
     "application": "dist/application",
     "domain": "dist/domain",
     "infrastructure": "dist/infrastructure"
