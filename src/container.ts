@@ -4,6 +4,7 @@ import axios from 'axios'
 import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
 
+import { AfordiBot } from 'infrastructure/irc/afordibot'
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
 import { CommandValidator } from 'infrastructure/services/commandValidator'
@@ -28,6 +29,7 @@ container.register({
 	axios: asValue(axios),
 	emojiService: asClass(EmojiService).singleton(),
 	userGenerator: asClass(UserGeneratorService),
+	afordibot: asClass(AfordiBot).singleton(),
 	httpClient: asClass(AxiosHttpClient),
 	restHelixClient: asClass(RestHelixClient),
 	commandValidator: asClass(CommandValidator),

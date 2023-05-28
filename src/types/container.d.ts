@@ -2,6 +2,7 @@ import { AxiosStatic } from 'axios'
 import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
 
+import { AfordiBot } from 'infrastructure/irc/afordibot'
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
 import { CommandValidator } from 'infrastructure/services/commandValidator'
@@ -20,6 +21,7 @@ export interface Dependencies {
 	axios: AxiosStatic
 	emojiService: EmojiService
 	userGenerator: UserGeneratorService
+	afordibot: AfordiBot
 	httpClient: AxiosHttpClient
 	restHelixClient: RestHelixClient
 	commandValidator: CommandValidator
