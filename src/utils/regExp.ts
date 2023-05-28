@@ -1,4 +1,0 @@
-export module RegExpModule {
-	export const jolinesUser = /^!jolines @?[a-zA-Z0-9_]{4,25}(?:\s+\w+)*$/
-	export const alforUser = /^!(aflor|flor) @?[a-zA-Z0-9_]{4,25}(?:\s+\w+)*$/
-}
