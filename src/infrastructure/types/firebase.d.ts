@@ -13,9 +13,12 @@ export interface UserDocumentParser {
 }
 
 // User repository
-export interface FindByUsername {
+export interface UserCollection {
+	collection: 'users' | 'channels' | 'weekly' | 'monthly'
+}
+
+export interface FindByUsername extends UserCollection {
 	username: string
-	collection: 'users' | 'channels'
 }
 
 export interface FindByUsernameAndChannel {
@@ -23,9 +26,8 @@ export interface FindByUsernameAndChannel {
 	channel: string
 }
 
-export interface SaveByUsername {
+export interface SaveByUsername extends UserCollection {
 	user: User
-	collection: 'users' | 'channels'
 }
 
 export interface SaveByUsernameAndChannel {
