@@ -16,7 +16,7 @@ export class IncrementJolines {
 		const weeklyUser = await this._userRepository.findByUsername({ username, collection: 'weekly' })
 		const monthlyUser = await this._userRepository.findByUsername({ username, collection: 'monthly' })
 		const channel = await this._userRepository.findByUsername({ username: channelName, collection: 'channels' })
-		const channelUser = await this._userRepository.findByUsernameAndChannel({ username, channel: channelName })
+		const channelUser = await this._userRepository.findByUsernameAndChannel({ username, channelName })
 
 		// Create the domain objects if they don't exist
 		const userDomain = this._userGenerator.generateIfNotExists({ user, username })
@@ -37,6 +37,6 @@ export class IncrementJolines {
 		await this._userRepository.saveByUsername({ user: weeklyUserDomain, collection: 'weekly' })
 		await this._userRepository.saveByUsername({ user: monthlyUserDomain, collection: 'monthly' })
 		await this._userRepository.saveByUsername({ user: channelDomain, collection: 'channels' })
-		await this._userRepository.saveByUsernameAndChannel({ user: channelUserDomain, channel: channelName })
+		await this._userRepository.saveByUsernameAndChannel({ user: channelUserDomain, channelName })
 	}
 }

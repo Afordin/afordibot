@@ -13,7 +13,7 @@ export class GetUserJolines {
 
 	public async execute({ username, channelName }: GetUserJolinesCommand) {
 		const pig = this._emojiService.getRandomPig()
-		const user = await this._userRepository.findByUsernameAndChannel({ username, channel: channelName })
+		const user = await this._userRepository.findByUsernameAndChannel({ username, channelName })
 		const jolines = user?.jolines ?? 0
 		return new GetUserJolinesResponse({ username, jolines, pig })
 	}

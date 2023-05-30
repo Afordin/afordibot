@@ -23,7 +23,7 @@ export interface FindByUsername extends UserCollection {
 
 export interface FindByUsernameAndChannel {
 	username: string
-	channel: string
+	channelName: string
 }
 
 export interface SaveByUsername extends UserCollection {
@@ -32,5 +32,5 @@ export interface SaveByUsername extends UserCollection {
 
 export interface SaveByUsernameAndChannel {
 	user: User
-	channel: string
+	channelName: string
 }

@@ -25,9 +25,9 @@ export class UserRepository extends BaseRepository {
 		}
 	}
 
-	public async findByUsernameAndChannel({ username, channel }: FindByUsernameAndChannel) {
+	public async findByUsernameAndChannel({ username, channelName }: FindByUsernameAndChannel) {
 		try {
-			const collection = `channels-users/${channel}/${username}`
+			const collection = `channels-users/${channelName}/${username}`
 			const userData = await this._find<Omit<UserEntity, 'username'>>(collection)
 			return userData && this._userDocumentParser.toDomain({ username, ...userData })
 		} catch (error: any) {
@@ -44,10 +44,10 @@ export class UserRepository extends BaseRepository {
 		}
 	}
 
-	public async saveByUsernameAndChannel({ user, channel }: SaveByUsernameAndChannel) {
+	public async saveByUsernameAndChannel({ user, channelName }: SaveByUsernameAndChannel) {
 		try {
 			const { username, ...data } = this._userDocumentParser.toDocument(user)
-			const collection = `channels-users/${channel}/${username}`
+			const collection = `channels-users/${channelName}/${username}`
 			await this._save(collection, data)
 		} catch (error: any) {
 			throw new Error(error)
