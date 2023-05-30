@@ -6,6 +6,7 @@ import {
 	FindByUsernameAndChannel,
 	SaveByUsername,
 	SaveByUsernameAndChannel,
+	UserCollection,
 } from 'infrastructure/types/firebase'
 
 export class UserRepository extends BaseRepository {
@@ -49,6 +50,14 @@ export class UserRepository extends BaseRepository {
 			const { username, ...data } = this._userDocumentParser.toDocument(user)
 			const collection = `channels-users/${channelName}/${username}`
 			await this._save(collection, data)
+		} catch (error: any) {
+			throw new Error(error)
+		}
+	}
+
+	public async delete({ collection }: UserCollection) {
+		try {
+			await this._delete(collection)
 		} catch (error: any) {
 			throw new Error(error)
 		}

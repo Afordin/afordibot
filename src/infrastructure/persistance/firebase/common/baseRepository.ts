@@ -25,4 +25,13 @@ export class BaseRepository {
 			throw new Error(error)
 		}
 	}
+
+	protected async _delete(collection: string) {
+		const db = this._dbHandler.getInstance()
+		try {
+			await db.ref(collection).remove()
+		} catch (error: any) {
+			throw new Error(error)
+		}
+	}
 }
