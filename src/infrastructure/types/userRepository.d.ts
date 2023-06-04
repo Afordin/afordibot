@@ -1,10 +1,8 @@
+import { DocumentParser } from 'infrastructure/types/firebase'
 import { UserEntity } from 'domain/types/User'
 import { User } from 'domain/user/User'
 
-export interface UserDocumentParser {
-	toDomain: (user: UserEntity) => User
-	toDocument: (user: User) => UserEntity
-}
+export type UserDocumentParser = DocumentParser<UserEntity, User>
 
 export interface UserCollection {
 	collection: 'users' | 'channels' | 'weekly' | 'monthly'
