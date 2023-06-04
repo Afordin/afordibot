@@ -8,7 +8,7 @@ import { RestHelixClient } from 'infrastructure/services/restHelixClient'
 import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { TextParser } from 'infrastructure/services/textParser'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
-import { UserDocumentParser } from 'infrastructure/types/firebase'
+import { UserDocumentParser } from 'infrastructure/types/userRepository'
 import { UserRepository } from 'infrastructure/persistance/firebase/user/userRepository'
 
 import { GetChannelAflores } from 'application/getChannelAflores'

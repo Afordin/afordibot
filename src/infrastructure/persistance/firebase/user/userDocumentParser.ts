@@ -1,5 +1,5 @@
 import { User } from 'domain/user/User'
-import { UserDocumentParser } from 'infrastructure/types/firebase'
+import { UserDocumentParser } from 'infrastructure/types/userRepository'
 
 export const userDocumentParser = (): UserDocumentParser => {
 	return {

@@ -7,7 +7,7 @@ import {
 	SaveByUsername,
 	SaveByUsernameAndChannel,
 	UserCollection,
-} from 'infrastructure/types/firebase'
+} from 'infrastructure/types/userRepository'
 
 export class UserRepository extends BaseRepository {
 	private _userDocumentParser: Dependencies['userDocumentParser']
