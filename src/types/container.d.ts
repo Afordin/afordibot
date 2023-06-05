@@ -1,4 +1,5 @@
 import { AxiosStatic } from 'axios'
+import dayjs from 'dayjs'
 
 import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
@@ -23,6 +24,7 @@ import { IncrementJolines } from 'application/incrementJolines'
 export interface Dependencies {
 	// Values
 	axios: AxiosStatic
+	dayjs: typeof dayjs
 
 	// Domain services
 	emojiService: EmojiService

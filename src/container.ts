@@ -1,5 +1,9 @@
 import { createContainer, InjectionMode, asValue, asClass, asFunction } from 'awilix'
 import axios from 'axios'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
@@ -23,6 +27,11 @@ import { IncrementJolines } from 'application/incrementJolines'
 
 import type { Dependencies } from 'types/container'
 
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(customParseFormat)
+dayjs.tz.setDefault('Europe/Madrid')
+
 const container = createContainer<Dependencies>({
 	injectionMode: InjectionMode.PROXY,
 })
@@ -30,6 +39,7 @@ const container = createContainer<Dependencies>({
 container.register({
 	// Values
 	axios: asValue(axios),
+	dayjs: asValue(dayjs),
 
 	// Domain services
 	emojiService: asClass(EmojiService).singleton(),
