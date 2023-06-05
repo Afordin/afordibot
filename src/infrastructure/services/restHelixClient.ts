@@ -15,9 +15,9 @@ export class RestHelixClient {
 		return token.access_token
 	}
 
-	public async getUserImage(username: string) {
+	public async getUsersData(usernames: string[]) {
 		const accessToken = await this._getHelixToken()
-		const url = `https://api.twitch.tv/helix/users?login=${username}`
+		const url = `https://api.twitch.tv/helix/users?login=${usernames.join('&login=')}`
 		const options = {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
@@ -26,7 +26,6 @@ export class RestHelixClient {
 			},
 		}
 		const { data } = await this._httpClient.get<{ data: HelixUserData[] }>({ url, options })
-		if (data.length === 0) return null
-		return data[0].profile_image_url
+		return data
 	}
 }

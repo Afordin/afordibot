@@ -20,17 +20,19 @@ describe('Instantiate rest helix client', () => {
 
 	test('should return an object with the expected methods', () => {
 		expect(typeof restHelixClient).toBe('object')
-		expect(typeof restHelixClient.getUserImage).toBe('function')
+		expect(typeof restHelixClient.getUsersData).toBe('function')
 	})
 
-	test('getUserImage method should return expected data', async () => {
+	test('getUsersData method should return expected data', async () => {
 		httpClientMock.post.mockResolvedValue({ access_token: 'test' })
 		httpClientMock.get
 			.mockResolvedValueOnce({ data: [] })
 			.mockResolvedValueOnce({ data: [{ profile_image_url: 'test' }] })
-		expect(await restHelixClient.getUserImage('username')).toEqual(null)
-		expect(await restHelixClient.getUserImage('username')).toEqual('test')
-		expect(httpClientMock.post).toHaveBeenCalledTimes(2)
-		expect(httpClientMock.get).toHaveBeenCalledTimes(2)
+			.mockResolvedValueOnce({ data: [{ profile_image_url: 'test' }, { profile_image_url: 'test' }] })
+		expect(await restHelixClient.getUsersData([])).toEqual([])
+		expect(await restHelixClient.getUsersData(['test'])).toEqual([{ profile_image_url: 'test' }])
+		expect((await restHelixClient.getUsersData(['test', 'test'])).length).toBe(2)
+		expect(httpClientMock.post).toHaveBeenCalledTimes(3)
+		expect(httpClientMock.get).toHaveBeenCalledTimes(3)
 	})
 })
