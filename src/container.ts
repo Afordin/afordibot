@@ -5,6 +5,7 @@ import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
+import { DateService } from 'domain/services/date'
 import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
 
@@ -42,6 +43,7 @@ container.register({
 	dayjs: asValue(dayjs),
 
 	// Domain services
+	dateService: asClass(DateService).singleton(),
 	emojiService: asClass(EmojiService).singleton(),
 	userGenerator: asClass(UserGeneratorService),
 
