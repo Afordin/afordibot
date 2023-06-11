@@ -23,6 +23,7 @@ import { GetChannelJolines } from 'application/getChannelJolines'
 import { GetUserJolines } from 'application/getUserJolines'
 import { IncrementAflores } from 'application/incrementAflores'
 import { IncrementJolines } from 'application/incrementJolines'
+import { ResetRanking } from 'application/resetRanking'
 
 export interface Dependencies {
 	// Values
@@ -55,4 +56,5 @@ export interface Dependencies {
 	getUserJolines: GetUserJolines
 	incrementAflores: IncrementAflores
 	incrementJolines: IncrementJolines
+	resetRanking: ResetRanking
 }

@@ -28,6 +28,7 @@ import { GetChannelJolines } from 'application/getChannelJolines'
 import { GetUserJolines } from 'application/getUserJolines'
 import { IncrementAflores } from 'application/incrementAflores'
 import { IncrementJolines } from 'application/incrementJolines'
+import { ResetRanking } from 'application/resetRanking'
 
 import type { Dependencies } from 'types/container'
 
@@ -71,6 +72,7 @@ container.register({
 	getUserJolines: asClass(GetUserJolines),
 	incrementAflores: asClass(IncrementAflores),
 	incrementJolines: asClass(IncrementJolines),
+	resetRanking: asClass(ResetRanking),
 })
 
 export { container }
