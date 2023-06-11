@@ -11,6 +11,7 @@ import { UserGeneratorService } from 'domain/services/userGenerator'
 
 import { AfordiBot } from 'infrastructure/irc/afordibot'
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
+import { CronService } from 'infrastructure/services/cron'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
 import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { TextParser } from 'infrastructure/services/textParser'
@@ -50,6 +51,7 @@ container.register({
 	// Infrastructure services
 	afordibot: asClass(AfordiBot).singleton(),
 	httpClient: asClass(AxiosHttpClient),
+	cronService: asClass(CronService).singleton(),
 	restHelixClient: asClass(RestHelixClient),
 	commandValidator: asClass(CommandValidator),
 	textParser: asClass(TextParser),

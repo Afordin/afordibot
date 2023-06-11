@@ -7,6 +7,7 @@ import { UserGeneratorService } from 'domain/services/userGenerator'
 
 import { AfordiBot } from 'infrastructure/irc/afordibot'
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
+import { CronService } from 'src/infrastructure/services/cron'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
 import { CommandValidator } from 'infrastructure/services/commandValidator'
 import { TextParser } from 'infrastructure/services/textParser'
@@ -35,6 +36,7 @@ export interface Dependencies {
 	// Infrastructure services
 	afordibot: AfordiBot
 	httpClient: AxiosHttpClient
+	cronService: CronService
 	restHelixClient: RestHelixClient
 	commandValidator: CommandValidator
 	textParser: TextParser
