@@ -1,5 +1,6 @@
 import { AxiosStatic } from 'axios'
 import dayjs from 'dayjs'
+import { CronJob } from 'cron'
 
 import { DateService } from 'domain/services/date'
 import { EmojiService } from 'domain/services/emoji'
@@ -27,6 +28,7 @@ export interface Dependencies {
 	// Values
 	axios: AxiosStatic
 	dayjs: typeof dayjs
+	CronJob: typeof CronJob
 
 	// Domain services
 	dateService: DateService

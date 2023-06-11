@@ -1,9 +1,11 @@
 import { createContainer, InjectionMode, asValue, asClass, asFunction } from 'awilix'
+
 import axios from 'axios'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { CronJob } from 'cron'
 
 import { DateService } from 'domain/services/date'
 import { EmojiService } from 'domain/services/emoji'
@@ -42,6 +44,7 @@ container.register({
 	// Values
 	axios: asValue(axios),
 	dayjs: asValue(dayjs),
+	CronJob: asValue(CronJob),
 
 	// Domain services
 	dateService: asClass(DateService).singleton(),
