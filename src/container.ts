@@ -12,6 +12,8 @@ import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
 
 import { AfordiBot } from 'infrastructure/irc/afordibot'
+import { CronJobs } from 'src/infrastructure/cron/cronJobs'
+
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import { CronService } from 'infrastructure/services/cron'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
@@ -52,8 +54,11 @@ container.register({
 	emojiService: asClass(EmojiService).singleton(),
 	userGenerator: asClass(UserGeneratorService),
 
-	// Infrastructure services
+	// Entry points
 	afordibot: asClass(AfordiBot).singleton(),
+	cronJobs: asClass(CronJobs).singleton(),
+
+	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
 	cronService: asClass(CronService).singleton(),
 	restHelixClient: asClass(RestHelixClient),

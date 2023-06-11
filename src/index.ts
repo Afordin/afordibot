@@ -5,4 +5,7 @@ import 'module-alias/register'
 import { container } from 'src/container'
 
 const afordibot = container.resolve('afordibot')
+const cronJobs = container.resolve('cronJobs')
+
 afordibot.connect()
+cronJobs.start()

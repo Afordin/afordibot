@@ -7,6 +7,8 @@ import { EmojiService } from 'domain/services/emoji'
 import { UserGeneratorService } from 'domain/services/userGenerator'
 
 import { AfordiBot } from 'infrastructure/irc/afordibot'
+import { CronJobs } from 'src/infrastructure/cron/cronJobs'
+
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import { CronService } from 'src/infrastructure/services/cron'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
@@ -36,8 +38,11 @@ export interface Dependencies {
 	emojiService: EmojiService
 	userGenerator: UserGeneratorService
 
-	// Infrastructure services
+	// Entry points
 	afordibot: AfordiBot
+	cronJobs: CronJobs
+
+	// Infrastructure services
 	httpClient: AxiosHttpClient
 	cronService: CronService
 	restHelixClient: RestHelixClient
