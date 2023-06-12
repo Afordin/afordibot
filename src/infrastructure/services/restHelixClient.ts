@@ -15,7 +15,21 @@ export class RestHelixClient {
 		return token.access_token
 	}
 
-	public async getUsersData(usernames: string[]) {
+	private _createUsernamesChunks(usernames: string[]) {
+		const iterations = Math.ceil(usernames.length / 100)
+		const chunks: string[][] = []
+		const size = 100
+
+		for (let i = 0; i < iterations; i++) {
+			const startIndex = size * i
+			const endIndex = size * (i + 1)
+			const chunk = usernames.slice(startIndex, endIndex)
+			chunks.push(chunk)
+		}
+		return chunks
+	}
+
+	private async _getChunkUsersData(usernames: string[]) {
 		const accessToken = await this._getHelixToken()
 		const url = `https://api.twitch.tv/helix/users?login=${usernames.join('&login=')}`
 		const options = {
@@ -27,5 +41,12 @@ export class RestHelixClient {
 		}
 		const { data } = await this._httpClient.get<{ data: HelixUserData[] }>({ url, options })
 		return data
+	}
+
+	public async getUsersData(usernames: string[]) {
+		const chunks = this._createUsernamesChunks(usernames)
+		const promises = chunks.map((chunk) => this._getChunkUsersData(chunk))
+		const usersData = await Promise.all(promises)
+		return usersData.flat()
 	}
 }
