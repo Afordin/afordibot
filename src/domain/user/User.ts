@@ -1,4 +1,4 @@
-import { InvalidUserError, INVALID_USERNAME, INVALID_JOLINES, INVALID_AFLORES } from './errors/invalidUserError'
+import { InvalidUserError, InvalidUserMessages } from './errors/invalidUserError'
 import { AflorValue } from 'domain/types/Aflor'
 import { UserEntity } from 'domain/types/User'
 import { Aflor } from 'domain/types/Emoji'
@@ -46,19 +46,19 @@ export class User implements UserEntity {
 
 	private _assertUsername(username: string) {
 		if (typeof username !== 'string' || username.length < 4) {
-			throw new InvalidUserError(INVALID_USERNAME)
+			throw new InvalidUserError(InvalidUserMessages.INVALID_USERNAME)
 		}
 	}
 
 	private _assertJolines(jolines: number) {
 		if (!this._isPositiveInteger(jolines)) {
-			throw new InvalidUserError(INVALID_JOLINES)
+			throw new InvalidUserError(InvalidUserMessages.INVALID_JOLINES)
 		}
 	}
 
 	private _assertAflores(aflores: AflorValue) {
 		if (typeof aflores !== 'object' || !this._isPositiveInteger(aflores.total)) {
-			throw new InvalidUserError(INVALID_AFLORES)
+			throw new InvalidUserError(InvalidUserMessages.INVALID_AFLORES)
 		}
 	}
 

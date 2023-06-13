@@ -6,13 +6,18 @@ import {
 	FindByUsernameAndChannel,
 	SaveByUsername,
 	SaveByUsernameAndChannel,
-} from 'infrastructure/types/firebase'
+	UserCollection,
+} from 'infrastructure/types/userRepository'
 
 export class UserRepository extends BaseRepository {
 	private _userDocumentParser: Dependencies['userDocumentParser']
 
-	constructor({ dbHandler, userDocumentParser }: Pick<Dependencies, 'dbHandler' | 'userDocumentParser'>) {
-		super({ dbHandler })
+	constructor({
+		dbHandler,
+		httpClient,
+		userDocumentParser,
+	}: Pick<Dependencies, 'dbHandler' | 'httpClient' | 'userDocumentParser'>) {
+		super({ dbHandler, httpClient })
 		this._userDocumentParser = userDocumentParser
 	}
 
@@ -25,9 +30,9 @@ export class UserRepository extends BaseRepository {
 		}
 	}
 
-	public async findByUsernameAndChannel({ username, channel }: FindByUsernameAndChannel) {
+	public async findByUsernameAndChannel({ username, channelName }: FindByUsernameAndChannel) {
 		try {
-			const collection = `channels-users/${channel}/${username}`
+			const collection = `channels-users/${channelName}/${username}`
 			const userData = await this._find<Omit<UserEntity, 'username'>>(collection)
 			return userData && this._userDocumentParser.toDomain({ username, ...userData })
 		} catch (error: any) {
@@ -44,11 +49,19 @@ export class UserRepository extends BaseRepository {
 		}
 	}
 
-	public async saveByUsernameAndChannel({ user, channel }: SaveByUsernameAndChannel) {
+	public async saveByUsernameAndChannel({ user, channelName }: SaveByUsernameAndChannel) {
 		try {
 			const { username, ...data } = this._userDocumentParser.toDocument(user)
-			const collection = `channels-users/${channel}/${username}`
+			const collection = `channels-users/${channelName}/${username}`
 			await this._save(collection, data)
+		} catch (error: any) {
+			throw new Error(error)
+		}
+	}
+
+	public async delete({ collection }: UserCollection) {
+		try {
+			await this._delete(collection)
 		} catch (error: any) {
 			throw new Error(error)
 		}

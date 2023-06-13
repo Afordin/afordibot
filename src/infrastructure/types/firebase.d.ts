@@ -1,34 +1,20 @@
 import { database } from 'firebase-admin'
-import { UserEntity } from 'domain/types/User'
-import { User } from 'domain/user/User'
 
 export interface DbHandler {
 	getInstance: () => database.Database
 	disconnect: () => void
 }
 
-export interface UserDocumentParser {
-	toDomain: (user: UserEntity) => User
-	toDocument: (user: User) => UserEntity
-}
-
-// User repository
-export interface FindByUsername {
-	username: string
-	collection: 'users' | 'channels'
-}
-
-export interface FindByUsernameAndChannel {
-	username: string
-	channel: string
-}
-
-export interface SaveByUsername {
-	user: User
-	collection: 'users' | 'channels'
-}
-
-export interface SaveByUsernameAndChannel {
-	user: User
-	channel: string
+/**
+ * Represents a document parser that provides functions for converting between a domain entity and a database document.
+ *
+ * @interface DocumentParser
+ * @template T - Database document type.
+ * @template U - Domain entity type.
+ * @property {function} toDomain - Converts a database document to a domain entity.
+ * @property {function} toDocument - Converts a domain entity to a database document.
+ */
+export interface DocumentParser<T, U> {
+	toDomain: (document: T) => U
+	toDocument: (entity: U) => T
 }
