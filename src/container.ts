@@ -24,6 +24,7 @@ import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { userDocumentParser } from 'infrastructure/persistance/firebase/user/userDocumentParser'
 import { UserRepository } from 'infrastructure/persistance/firebase/user/userRepository'
 import { imageDocumentParser } from 'infrastructure/persistance/firebase/image/imageDocumentParser'
+import { ImageRepository } from 'infrastructure/persistance/firebase/image/imageRepository'
 
 import { GetChannelAflores } from 'application/getChannelAflores'
 import { GetChannelJolines } from 'application/getChannelJolines'
@@ -70,6 +71,7 @@ container.register({
 	userDocumentParser: asFunction(userDocumentParser),
 	userRepository: asClass(UserRepository),
 	imageDocumentParser: asFunction(imageDocumentParser),
+	imageRepository: asClass(ImageRepository),
 
 	// Use cases
 	getChannelAflores: asClass(GetChannelAflores),

@@ -19,6 +19,7 @@ import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { UserDocumentParser } from 'infrastructure/types/userRepository'
 import { UserRepository } from 'infrastructure/persistance/firebase/user/userRepository'
 import { ImageDocumentParser } from 'infrastructure/types/imageRepository'
+import { ImageRepository } from 'infrastructure/persistance/firebase/image/imageRepository'
 
 import { GetChannelAflores } from 'application/getChannelAflores'
 import { GetChannelJolines } from 'application/getChannelJolines'
@@ -54,6 +55,7 @@ export interface Dependencies {
 	userDocumentParser: UserDocumentParser
 	userRepository: UserRepository
 	imageDocumentParser: ImageDocumentParser
+	imageRepository: ImageRepository
 
 	// Use cases
 	getChannelAflores: GetChannelAflores

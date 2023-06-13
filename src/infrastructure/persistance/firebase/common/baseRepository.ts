@@ -1,10 +1,13 @@
 import { Dependencies } from 'types/container'
+import { BaseCollection, DocumentKeys } from 'infrastructure/types/baseRepository'
 
 export class BaseRepository {
 	private _dbHandler: Dependencies['dbHandler']
+	private _httpClient: Dependencies['httpClient']
 
-	constructor({ dbHandler }: Pick<Dependencies, 'dbHandler'>) {
+	constructor({ dbHandler, httpClient }: Pick<Dependencies, 'dbHandler' | 'httpClient'>) {
 		this._dbHandler = dbHandler
+		this._httpClient = httpClient
 	}
 
 	protected async _find<T = any>(collection: string) {
@@ -30,6 +33,17 @@ export class BaseRepository {
 		const db = this._dbHandler.getInstance()
 		try {
 			await db.ref(collection).remove()
+		} catch (error: any) {
+			throw new Error(error)
+		}
+	}
+
+	public async findKeys(collection: BaseCollection) {
+		try {
+			const url = `${process.env.FIREBASE_DATABASE_URL}/${collection}.json?shallow=true`
+			const keys = await this._httpClient.get<DocumentKeys | null>({ url })
+			if (!keys) return []
+			return Object.keys(keys)
 		} catch (error: any) {
 			throw new Error(error)
 		}

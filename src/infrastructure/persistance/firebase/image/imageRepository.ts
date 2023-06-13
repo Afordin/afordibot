@@ -10,10 +10,11 @@ export class ImageRepository extends BaseRepository {
 
 	constructor({
 		dbHandler,
+		httpClient,
 		dateService,
 		imageDocumentParser,
-	}: Pick<Dependencies, 'dbHandler' | 'dateService' | 'imageDocumentParser'>) {
-		super({ dbHandler })
+	}: Pick<Dependencies, 'dbHandler' | 'httpClient' | 'dateService' | 'imageDocumentParser'>) {
+		super({ dbHandler, httpClient })
 		this._dateService = dateService
 		this._imageDocumentParser = imageDocumentParser
 	}

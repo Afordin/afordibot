@@ -12,8 +12,12 @@ import {
 export class UserRepository extends BaseRepository {
 	private _userDocumentParser: Dependencies['userDocumentParser']
 
-	constructor({ dbHandler, userDocumentParser }: Pick<Dependencies, 'dbHandler' | 'userDocumentParser'>) {
-		super({ dbHandler })
+	constructor({
+		dbHandler,
+		httpClient,
+		userDocumentParser,
+	}: Pick<Dependencies, 'dbHandler' | 'httpClient' | 'userDocumentParser'>) {
+		super({ dbHandler, httpClient })
 		this._userDocumentParser = userDocumentParser
 	}
 
