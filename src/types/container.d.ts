@@ -27,6 +27,7 @@ import { GetUserJolines } from 'application/getUserJolines'
 import { IncrementAflores } from 'application/incrementAflores'
 import { IncrementJolines } from 'application/incrementJolines'
 import { ResetRanking } from 'application/resetRanking'
+import { GetUsersImages } from 'application/getUsersImages'
 
 export interface Dependencies {
 	// Values
@@ -64,4 +65,5 @@ export interface Dependencies {
 	incrementAflores: IncrementAflores
 	incrementJolines: IncrementJolines
 	resetRanking: ResetRanking
+	getUsersImages: GetUsersImages
 }

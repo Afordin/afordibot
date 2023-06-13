@@ -32,6 +32,7 @@ import { GetUserJolines } from 'application/getUserJolines'
 import { IncrementAflores } from 'application/incrementAflores'
 import { IncrementJolines } from 'application/incrementJolines'
 import { ResetRanking } from 'application/resetRanking'
+import { GetUsersImages } from 'application/getUsersImages'
 
 import type { Dependencies } from 'types/container'
 
@@ -80,6 +81,7 @@ container.register({
 	incrementAflores: asClass(IncrementAflores),
 	incrementJolines: asClass(IncrementJolines),
 	resetRanking: asClass(ResetRanking),
+	getUsersImages: asClass(GetUsersImages),
 })
 
 export { container }
