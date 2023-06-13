@@ -8,16 +8,7 @@ export class DateService {
 		this._dayjs = dayjs
 	}
 
-	private _parse(date: string) {
-		return this._dayjs(date, this.FORMAT)
-	}
-
 	public now() {
 		return this._dayjs().format(this.FORMAT)
-	}
-
-	public isWeeklyOutdated(date: string) {
-		const limitDate = this._dayjs().subtract(7, 'day')
-		return this._parse(date).isBefore(limitDate)
 	}
 }
