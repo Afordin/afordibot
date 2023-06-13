@@ -1,37 +1,33 @@
 import { Dependencies } from 'types/container'
 import { BaseRepository } from '../common/baseRepository'
 import { ImagesDocument } from 'infrastructure/types/imageRepository'
-import { ImageEntity } from 'domain/types/Image'
 import { Image } from 'src/domain/image/Image'
 
 export class ImageRepository extends BaseRepository {
-	private _dateService: Dependencies['dateService']
 	private _imageDocumentParser: Dependencies['imageDocumentParser']
 
 	constructor({
 		dbHandler,
 		httpClient,
-		dateService,
 		imageDocumentParser,
-	}: Pick<Dependencies, 'dbHandler' | 'httpClient' | 'dateService' | 'imageDocumentParser'>) {
+	}: Pick<Dependencies, 'dbHandler' | 'httpClient' | 'imageDocumentParser'>) {
 		super({ dbHandler, httpClient })
-		this._dateService = dateService
 		this._imageDocumentParser = imageDocumentParser
 	}
 
-	private _filterOutdated(images: Image[], image: ImageEntity) {
-		const isOutDated = this._dateService.isWeeklyOutdated(image.updatedAt)
-		if (isOutDated) images.push(this._imageDocumentParser.toDomain(image))
-		return images
+	private _parseImages(images: Image[]) {
+		const imagesDocument: ImagesDocument = {}
+		images.forEach((image) => {
+			const imageDocument = this._imageDocumentParser.toDocument(image)
+			imagesDocument[imageDocument.username] = imageDocument
+		})
+		return imagesDocument
 	}
 
-	public async findOutdated() {
+	public async saveMany(images: Image[]) {
 		try {
-			const document = await this._find<ImagesDocument>('images')
-			if (!document) return []
-			const images: ImageEntity[] = Object.values(document)
-			const outdatedImages = images.reduce<Image[]>(this._filterOutdated, [])
-			return outdatedImages
+			const imagesDocument = this._parseImages(images)
+			await this._save<ImagesDocument>('images', imagesDocument)
 		} catch (error: any) {
 			throw new Error(error)
 		}
