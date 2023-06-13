@@ -11,6 +11,17 @@ export class CronJobs {
 		this._cronService = cronService
 	}
 
+	private _getUsersImages() {
+		return async () => {
+			try {
+				await container.resolve('getUsersImages').execute()
+			} catch (error) {
+				// TODO - add error handling
+				console.log(error)
+			}
+		}
+	}
+
 	private _resetRanking(collection: RankingCollection) {
 		return async () => {
 			try {
@@ -24,6 +35,7 @@ export class CronJobs {
 	}
 
 	public start() {
+		this._cronService.weekly(this._getUsersImages())
 		this._cronService.weekly(this._resetRanking('weekly'))
 		this._cronService.monthly(this._resetRanking('monthly'))
 	}
