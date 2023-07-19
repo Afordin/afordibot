@@ -7,8 +7,8 @@
   "packageManager": "pnpm@8.6.6",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production node dist/index.js",
-    "dev": "cross-env NODE_ENV=development node dist/index.js",
+    "start": "cross-env NODE_ENV=production node ./dist/index.js",
+    "dev": "cross-env NODE_ENV=development node ./dist/index.js",
     "build": "rm -rf ./dist && tsc",
     "test": "cross-env NODE_ENV=test vitest --run"
   },
