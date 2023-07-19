@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "src/*": ["*"],
+      "application": ["/application/*, /application"],
+      "domain": ["/domain/*", "/domain"],
+      "infrastructure": ["/infrastructure/*", "/infrastructure"],
+      "types": ["/types/*", "/types"]
+    },
+    "outDir": "./dist"
+  },
+  "extends": ["../../tsconfig.json"],
+  "exclude": [
+    "./node_modules/**/*",
+    "./src/tests/**/*",
+    "./dist/**/*"
+  ]
+}
