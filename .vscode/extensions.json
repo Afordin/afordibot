@@ -1,7 +1,3 @@
 {
-	"recommendations": [
-		"rome.rome",
-		"meganrogge.template-string-converter",
-		"usernamehw.errorlens"
-	]
+	"recommendations": ["rome.rome", "meganrogge.template-string-converter", "usernamehw.errorlens"]
 }

@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
-      "src/*": ["*"],
-      "application": ["/application/*, /application"],
-      "domain": ["/domain/*", "/domain"],
-      "infrastructure": ["/infrastructure/*", "/infrastructure"],
-      "types": ["/types/*", "/types"]
+      "@afordibot/core": ["./packages/core/src"]
     },
     "target": "ESNext",
     "moduleResolution": "node",
@@ -24,5 +19,9 @@
     "isolatedModules": true,
     "outDir": "./dist"
   },
-  "include": ["src"]
+  "exclude": [
+    "./node_modules/**/*",
+    "./src/tests/**/*",
+    "./dist/**/*"
+  ]
 }

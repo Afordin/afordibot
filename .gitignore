@@ -1,5 +1,4 @@
 .env*
-code.txt
 node_modules
 dist
-yarn.lock
+pnpm-lock.yaml
