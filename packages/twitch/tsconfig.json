@@ -9,7 +9,22 @@
       "types": ["/types/*", "/types"]
     },
     "moduleResolution": "node",
-    "outDir": "./dist"
+    "outDir": "./dist",
+
+    // TODO - Remove redundant config
+    "target": "ESNext",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "skipLibCheck": false,
+    "isolatedModules": true,
   },
   "extends": ["../../tsconfig.json"],
   "exclude": [

@@ -1,0 +1,2 @@
+- [ ] Add railway cli deployment to github actions
+- [ ] Remove redundant dependencies and typescript config from twitch package
