@@ -1,0 +1,36 @@
+{
+  "name": "@afordibot/discord",
+  "version": "0.0.0",
+  "description": "A bot specifically designed to take over the #comuafor channel.",
+  "author": "Luciano Morales",
+  "license": "GPL-3.0-or-later",
+  "packageManager": "pnpm@8.6.6",
+  "private": true,
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node ./dist/index.js",
+    "dev": "cross-env NODE_ENV=development node ./dist/index.js",
+    "build": "rm -rf ./dist && tsc",
+    "test": "cross-env NODE_ENV=test vitest --run",
+    "test:watch": "cross-env NODE_ENV=test vitest"
+  },
+  "_moduleAliases": {
+    "src": "dist",
+    "application": "dist/application",
+    "domain": "dist/domain",
+    "infrastructure": "dist/infrastructure"
+  },
+  "dependencies": {
+    "@afordibot/core": "^0.0.0-beta.2",
+    "awilix": "8.0.1",
+    "cross-env": "7.0.3",
+    "discord.js": "14.11.0",
+    "dotenv": "16.3.1",
+    "module-alias": "2.2.3"
+  },
+  "devDependencies": {
+    "@types/module-alias": "2.0.1",
+    "@types/node": "20.4.1",
+    "typescript": "5.1.6",
+    "vitest": "0.33.0"
+  }
+}

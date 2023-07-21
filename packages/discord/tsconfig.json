@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "src/*": ["*"],
+      "application": ["/application/*, /application"],
+      "domain": ["/domain/*", "/domain"],
+      "infrastructure": ["/infrastructure/*", "/infrastructure"],
+      "types": ["/types/*", "/types"]
+    },
+    "moduleResolution": "node",
+    "outDir": "./dist",
+
+    // TODO - Remove redundant config
+    "target": "ESNext",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "skipLibCheck": false,
+    "isolatedModules": true,
+  },
+  "include": ["src"],
+  "exclude": [
+    "./node_modules/**/*",
+    "./src/tests/**/*",
+    "./dist/**/*",
+    "./vitest.config.ts"
+  ]
+}
