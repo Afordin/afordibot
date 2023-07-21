@@ -27,7 +27,7 @@
 				"useSimplifiedLogicExpression": "warn"
 			},
 			"correctness": {
-				"noUndeclaredVariables": "warn"
+				"noUndeclaredVariables": "off"
 			},
 			"performance": {
 				"noDelete": "warn"
@@ -45,7 +45,8 @@
 			"suspicious": {
 				"noArrayIndexKey": "off",
 				"noCatchAssign": "off",
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noPrototypeBuiltins": "off"
 			},
 			"nursery": {
 				"noAccumulatingSpread": "warn",
