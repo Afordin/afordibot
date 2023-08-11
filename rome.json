@@ -52,9 +52,7 @@
 				"noAccumulatingSpread": "warn",
 				"noAriaUnsupportedElements": "warn",
 				"noConfusingArrow": "warn",
-				"noConstantCondition": "warn",
-				"noDuplicateJsxProps": "warn",
-				"useSimpleNumberKeys": "warn"
+				"noConstantCondition": "warn"
 			}
 		},
 		"ignore": ["node_modules/**", "dist/**", "*.js"]
