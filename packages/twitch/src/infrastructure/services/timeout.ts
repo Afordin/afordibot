@@ -9,11 +9,11 @@ export class TimeoutService {
 		this._channels.set(channelName, { ...timeouts, [command]: true })
 
 		setTimeout(() => {
-			this.removeTiemout({ channelName, command })
+			this.removeTimeout({ channelName, command })
 		}, this.TIMEOUT_DURATION)
 	}
 
-	public removeTiemout({ channelName, command }: Timeout) {
+	public removeTimeout({ channelName, command }: Timeout) {
 		const timeouts = this._channels.get(channelName) ?? {}
 		this._channels.set(channelName, { ...timeouts, [command]: false })
 	}
