@@ -11,6 +11,8 @@ import type { TimeoutService } from 'src/infrastructure/services/timeout'
 import type { TwitchBot } from 'infrastructure/irc/twitchBot'
 import type { CronJobs } from 'infrastructure/cronJobs/cronJobs'
 
+import type { DomDomDom } from 'application/domDomDom'
+
 export interface Dependencies {
 	// Core
 	afordibot: AfordiBot
@@ -29,4 +31,7 @@ export interface Dependencies {
 	// Entry points
 	twitchBot: TwitchBot
 	cronJobs: CronJobs
+
+	// Use cases
+	domDomDom: DomDomDom
 }

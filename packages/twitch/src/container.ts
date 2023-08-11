@@ -18,6 +18,8 @@ import { TwitchBot } from 'infrastructure/irc/twitchBot'
 import { CronJobs } from 'infrastructure/cronJobs/cronJobs'
 import { config } from 'infrastructure/config'
 
+import { DomDomDom } from 'application/domDomDom'
+
 import type { Dependencies } from 'types/container'
 
 dayjs.extend(utc)
@@ -47,6 +49,9 @@ container.register({
 	// Entry points
 	twitchBot: asClass(TwitchBot).singleton(),
 	cronJobs: asClass(CronJobs).singleton(),
+
+	// Use cases
+	domDomDom: asClass(DomDomDom),
 })
 
 export { container }
