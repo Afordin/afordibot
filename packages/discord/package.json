@@ -20,7 +20,7 @@
     "infrastructure": "dist/infrastructure"
   },
   "dependencies": {
-    "@afordibot/core": "^0.0.0-beta.2",
+    "@afordibot/core": "^0.0.0-beta.3",
     "awilix": "8.0.1",
     "cross-env": "7.0.3",
     "discord.js": "14.11.0",
