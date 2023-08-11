@@ -14,3 +14,7 @@ export interface AflorCommand extends BotCommand {
 	username: string
 	message: string
 }
+
+export interface DomDomDomCommand extends BotCommand {
+	command: string
+}

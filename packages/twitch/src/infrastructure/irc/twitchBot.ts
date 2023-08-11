@@ -2,24 +2,33 @@ import { AfordiBot } from '@afordibot/core'
 import { config } from 'infrastructure/config'
 
 import type { Dependencies } from 'types/container'
-import type { BotCommand, JolinCommand, JolinesCommand, AflorCommand } from 'infrastructure/types/bot'
+import type { BotCommand, JolinCommand, JolinesCommand, AflorCommand, DomDomDomCommand } from 'infrastructure/types/bot'
 
 export class TwitchBot {
 	private _afordibot: AfordiBot
 	private _client: ReturnType<Dependencies['TmiClient']>
 	private _commandService: Dependencies['commandService']
 	private _textParserService: Dependencies['textParserService']
+	private _timeoutService: Dependencies['timeoutService']
+	private _domDomDom: Dependencies['domDomDom']
 
 	constructor({
 		afordibot,
 		TmiClient,
 		commandService,
 		textParserService,
-	}: Pick<Dependencies, 'afordibot' | 'TmiClient' | 'commandService' | 'textParserService'>) {
+		timeoutService,
+		domDomDom,
+	}: Pick<
+		Dependencies,
+		'afordibot' | 'TmiClient' | 'commandService' | 'textParserService' | 'timeoutService' | 'domDomDom'
+	>) {
 		this._afordibot = afordibot
 		this._client = new TmiClient(config.botConfig)
 		this._commandService = commandService
 		this._textParserService = textParserService
+		this._timeoutService = timeoutService
+		this._domDomDom = domDomDom
 	}
 
 	private async _isJolin(command: JolinCommand) {
@@ -48,6 +57,14 @@ export class TwitchBot {
 		this._client.say(`#${channelName}`, response.message)
 	}
 
+	private async _isDomDomDom({ channelName, command }: DomDomDomCommand) {
+		if (!this._timeoutService.isTimeout({ channelName, command })) {
+			this._timeoutService.addTimeout({ channelName, command })
+			const response = this._domDomDom.excecute()
+			this._client.say(`#${channelName}`, response.getMessage())
+		}
+	}
+
 	private _onConnected() {
 		this._client.on('connected', () => {
 			console.log('[+] Bot connected')
@@ -67,6 +84,8 @@ export class TwitchBot {
 				else if (this._commandService.isChannelAflores(message)) await this._isChannelAflores({ channelName })
 				else if (this._commandService.isUserJolines(message)) await this._isUserJolines({ channelName, message })
 				else if (this._commandService.isUserAflor(message)) await this._isUserAflor({ username, channelName, message })
+				else if (this._commandService.isDomDomDom(message))
+					await this._isDomDomDom({ channelName, command: 'domdomdom' })
 			} catch (error) {
 				console.error(error)
 			}
