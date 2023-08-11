@@ -6,6 +6,7 @@ import type dayjs from 'dayjs'
 import type { CronService } from 'infrastructure/services/cron'
 import type { CommandService } from 'infrastructure/services/command'
 import type { TextParserService } from 'infrastructure/services/textParser'
+import type { TimeoutService } from 'src/infrastructure/services/timeout'
 
 import type { TwitchBot } from 'infrastructure/irc/twitchBot'
 import type { CronJobs } from 'infrastructure/cronJobs/cronJobs'
@@ -23,6 +24,7 @@ export interface Dependencies {
 	cronService: CronService
 	commandService: CommandService
 	textParserService: TextParserService
+	timeoutService: TimeoutService
 
 	// Entry points
 	twitchBot: TwitchBot

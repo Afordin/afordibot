@@ -3,6 +3,7 @@ import { createContainer, InjectionMode, asValue, asClass } from 'awilix'
 import { AfordiBot } from '@afordibot/core'
 import { CronJob } from 'cron'
 import { Client } from 'tmi.js'
+
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -11,6 +12,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { CronService } from 'infrastructure/services/cron'
 import { CommandService } from 'infrastructure/services/command'
 import { TextParserService } from 'infrastructure/services/textParser'
+import { TimeoutService } from 'src/infrastructure/services/timeout'
 
 import { TwitchBot } from 'infrastructure/irc/twitchBot'
 import { CronJobs } from 'infrastructure/cronJobs/cronJobs'
@@ -40,6 +42,7 @@ container.register({
 	cronService: asClass(CronService).singleton(),
 	commandService: asClass(CommandService),
 	textParserService: asClass(TextParserService),
+	timeoutService: asClass(TimeoutService).singleton(),
 
 	// Entry points
 	twitchBot: asClass(TwitchBot).singleton(),
