@@ -1,10 +1,22 @@
 import type { Option } from 'infrastructure/config/option'
 
-export interface EnvConfig {
-	discord: {
-		token: string
-		id: string
+export interface FirebaseConfig {
+	credential: {
+		projectId: string
+		privateKey: string
+		clientEmail: string
 	}
+	databaseURL: string
+}
+
+export interface DiscordConfig {
+	token: string
+	id: string
+}
+
+export interface EnvConfig {
+	firebase: FirebaseConfig
+	discord: DiscordConfig
 }
 
 export interface OptionConfig {
