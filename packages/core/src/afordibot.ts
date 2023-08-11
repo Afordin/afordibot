@@ -1,6 +1,7 @@
 import { createContainer, InjectionMode, asValue, asClass, asFunction } from 'awilix'
 
 import axios from 'axios'
+import admin from 'firebase-admin'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -52,6 +53,7 @@ export class AfordiBot implements Bot {
 		this._container.register({
 			// Libraries
 			axios: asValue(axios),
+			admin: asValue(admin),
 			dayjs: asValue(dayjs),
 
 			// Domain services

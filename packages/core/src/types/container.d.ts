@@ -1,4 +1,5 @@
 import type { AxiosStatic } from 'axios'
+import type admin from 'firebase-admin'
 import type dayjs from 'dayjs'
 
 import type { DateService } from 'domain/services/date'
@@ -26,6 +27,7 @@ import type { UpdateUsersImages } from 'application/updateUsersImages'
 export interface Dependencies {
 	// Libraries
 	axios: AxiosStatic
+	admin: typeof admin
 	dayjs: typeof dayjs
 
 	// Domain services
