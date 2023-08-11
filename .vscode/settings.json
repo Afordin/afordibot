@@ -1,23 +1,23 @@
 {
-  "[javascript]": {
-    "editor.defaultFormatter": "rome.rome",
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "rome.rome",
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "rome.rome",
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "rome.rome",
-    "editor.formatOnSave": true
-  },
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.rome": false
-  },
-  "editor.tabSize": 2,
-  "files.eol": "\r\n"
+	"[javascript]": {
+		"editor.defaultFormatter": "rome.rome",
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "rome.rome",
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "rome.rome",
+		"editor.formatOnSave": true
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "rome.rome",
+		"editor.formatOnSave": true
+	},
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.rome": false
+	},
+	"editor.tabSize": 2,
+	"files.eol": "\r\n"
 }

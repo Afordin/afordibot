@@ -1,46 +1,23 @@
 {
   "name": "afordibot",
-  "description": "Afordibot is a Twitch bot that allows you to interact with your viewers.",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
+  "packageManager": "pnpm@8.6.6",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./dist/index.js",
-    "dev": "cross-env NODE_ENV=development node ./dist/index.js",
-    "build": "rm -rf ./dist && tsc",
-    "tsc": "tsc",
+    "build": "pnpm rome:run && pnpm --recursive build",
+    "test": "pnpm rome:run && pnpm --recursive test",
     "rome": "rome",
-    "rome:run": "yarn rome:format && yarn rome:lint",
+    "rome:run": "pnpm rome:format && pnpm rome:lint",
     "rome:format": "rome format --write .",
     "rome:format:check": "rome format .",
-    "rome:lint": "rome check . --apply-suggested",
+    "rome:lint": "rome check . --apply",
     "rome:lint:check": "rome check ."
   },
-  "_moduleAliases": {
-    "src": "dist",
-    "application": "dist/application",
-    "domain": "dist/domain",
-    "infrastructure": "dist/infrastructure"
-  },
-  "dependencies": {
-    "awilix": "^8.0.1",
-    "axios": "^1.3.3",
-    "cron": "^2.3.1",
-    "cross-env": "^7.0.3",
-    "dayjs": "^1.11.7",
-    "dotenv": "^16.0.2",
-    "firebase-admin": "^11.7.0",
-    "module-alias": "^2.2.2",
-    "tmi.js": "^1.8.5",
-    "vitest": "^0.30.1"
-  },
   "devDependencies": {
-    "@types/cron": "^2.0.1",
-    "@types/module-alias": "^2.0.1",
-    "@types/node": "^18.7.18",
-    "@types/tmi.js": "^1.8.3",
-    "rome": "^11.0.0",
-    "typescript": "^4.8.3"
+    "@types/node": "20.4.1",
+    "pnpm": "8.6.6",
+    "rome": "12.1.3",
+    "typescript": "5.1.6",
+    "vitest": "0.33.0"
   }
 }

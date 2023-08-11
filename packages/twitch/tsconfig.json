@@ -1,10 +1,18 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "paths": {
-      "@afordibot/core": ["./packages/core/src"]
+      "src/*": ["*"],
+      "application": ["/application/*, /application"],
+      "domain": ["/domain/*", "/domain"],
+      "infrastructure": ["/infrastructure/*", "/infrastructure"],
+      "types": ["/types/*", "/types"]
     },
-    "target": "ESNext",
     "moduleResolution": "node",
+    "outDir": "./dist",
+
+    // TODO - Remove redundant config
+    "target": "ESNext",
     "module": "commonjs",
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -17,11 +25,11 @@
     "sourceMap": true,
     "skipLibCheck": false,
     "isolatedModules": true,
-    "outDir": "./dist"
   },
   "exclude": [
     "./node_modules/**/*",
     "./src/tests/**/*",
-    "./dist/**/*"
+    "./dist/**/*",
+    "./vitest.config.ts"
   ]
 }
