@@ -1,9 +1,16 @@
 // @ts-nocheck
-import { describe, test, expect, beforeEach, vi } from 'vitest'
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 
 describe('Instantiate dbHandler', () => {
 	let dbHandler: FirebaseHandler
+	const deleteMock = vi.fn()
+	const adminMock = {
+		initializeApp: vi.fn(),
+		credential: { cert: vi.fn() },
+		firestore: vi.fn(),
+		database: vi.fn(),
+	}
 	const configMock = {
 		firebaseConfig: {
 			credential: {
@@ -16,7 +23,11 @@ describe('Instantiate dbHandler', () => {
 	}
 
 	beforeEach(() => {
-		dbHandler = new FirebaseHandler({ config: configMock })
+		dbHandler = new FirebaseHandler({ admin: adminMock, config: configMock })
+	})
+
+	afterEach(() => {
+		vi.resetAllMocks()
 	})
 
 	test('should be a function', () => {
@@ -25,26 +36,31 @@ describe('Instantiate dbHandler', () => {
 
 	test('should return an object with the expected methods', () => {
 		expect(typeof dbHandler).toBe('object')
-		expect(typeof dbHandler.app).toBe('object')
-		expect(typeof dbHandler.db).toBe('object')
-		expect(typeof dbHandler.instance).toBe('object')
 		expect(typeof dbHandler.getInstance).toBe('function')
 		expect(typeof dbHandler.disconnect).toBe('function')
 	})
 
-	test('should create the database instances', () => {
-		vi.spyOn(dbHandler, 'getInstance')
-		dbHandler.getInstance()
-		expect(dbHandler.app).not.toBeNull()
-		expect(dbHandler.db).not.toBeNull()
-		expect(dbHandler.instance).not.toBeNull()
+	test('should create the database instance', () => {
+		adminMock.initializeApp.mockReturnValue({ delete: deleteMock })
+		adminMock.credential.cert.mockReturnValue('cert')
+		adminMock.database.mockReturnValue('database')
+
+		expect(dbHandler.getInstance()).toBe('database')
+		expect(dbHandler.getInstance()).toBe('database')
+		expect(adminMock.initializeApp).toHaveBeenCalledTimes(1)
+		expect(adminMock.credential.cert).toHaveBeenCalledTimes(1)
+		expect(adminMock.database).toHaveBeenCalledTimes(1)
+		expect(deleteMock).toHaveBeenCalledTimes(0)
 	})
 
-	test('should nullify the database instances', () => {
-		vi.spyOn(dbHandler, 'disconnect')
-		dbHandler.disconnect()
-		expect(dbHandler.app).toBeNull()
-		expect(dbHandler.db).toBeNull()
-		expect(dbHandler.instance).toBeNull()
+	test('should delete the app instance', () => {
+		adminMock.initializeApp.mockReturnValue({ delete: deleteMock })
+		adminMock.credential.cert.mockReturnValue('cert')
+		adminMock.database.mockReturnValue('database')
+
+		expect(dbHandler.getInstance()).toBe('database')
+		expect(dbHandler.disconnect()).toBeUndefined()
+		expect(dbHandler.disconnect()).toBeUndefined()
+		expect(deleteMock).toHaveBeenCalledTimes(1)
 	})
 })
