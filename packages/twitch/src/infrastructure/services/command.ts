@@ -5,6 +5,8 @@ export class CommandService {
 	private channelJolines = /^!jolines$/
 	private channelAflores = /^!(aflores|flores)$/
 
+	private domDomDom = /^!domdomdom(?:\s+.*)?$/
+
 	public isJolin(message: string) {
 		return message.includes('jolin') && !message.includes('jolines')
 	}
@@ -23,5 +25,9 @@ export class CommandService {
 
 	public isChannelAflores(message: string) {
 		return this.channelAflores.test(message)
+	}
+
+	public isDomDomDom(message: string) {
+		return this.domDomDom.test(message)
 	}
 }
