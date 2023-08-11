@@ -2,7 +2,7 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 
-describe('Instantiate axios http client', () => {
+describe('Instantiate dbHandler', () => {
 	let dbHandler: FirebaseHandler
 	const configMock = {
 		firebaseConfig: {

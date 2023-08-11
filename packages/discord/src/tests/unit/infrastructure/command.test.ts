@@ -3,7 +3,7 @@ import { describe, test, expect } from 'vitest'
 import { Command } from 'infrastructure/config/command'
 import { Option } from 'infrastructure/config/option'
 
-describe('Instantiate command entity', () => {
+describe('Instantiate command config object', () => {
 	const VALID_COMMAND_WITHOUT_OPTIONS = {
 		name: 'aflor',
 		description: 'Gives an aflor to an user',

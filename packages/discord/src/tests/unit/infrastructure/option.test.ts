@@ -2,7 +2,7 @@
 import { describe, test, expect } from 'vitest'
 import { Option } from 'infrastructure/config/option'
 
-describe('Instantiate option config', () => {
+describe('Instantiate option config object', () => {
 	const VALID_OPTION_WITHOUT_DESCRIPTION = { name: 'name' }
 	const VALID_OPTION_WITH_DESCRIPTION = { name: 'name', description: 'description' }
 
