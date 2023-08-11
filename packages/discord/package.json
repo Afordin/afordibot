@@ -25,6 +25,7 @@
     "cross-env": "7.0.3",
     "discord.js": "14.11.0",
     "dotenv": "16.3.1",
+    "firebase-admin": "11.9.0",
     "module-alias": "2.2.3"
   },
   "devDependencies": {
