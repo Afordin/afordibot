@@ -13,6 +13,7 @@ import { CronService } from 'infrastructure/services/cron'
 import { CommandService } from 'infrastructure/services/command'
 import { TextParserService } from 'infrastructure/services/textParser'
 import { TimeoutService } from 'src/infrastructure/services/timeout'
+import { DateBuilder } from 'src/infrastructure/services/date'
 
 import { TwitchBot } from 'infrastructure/irc/twitchBot'
 import { CronJobs } from 'infrastructure/cronJobs/cronJobs'
@@ -45,6 +46,7 @@ container.register({
 	commandService: asClass(CommandService),
 	textParserService: asClass(TextParserService),
 	timeoutService: asClass(TimeoutService).singleton(),
+	dateBuilder: asClass(DateBuilder),
 
 	// Entry points
 	twitchBot: asClass(TwitchBot).singleton(),
