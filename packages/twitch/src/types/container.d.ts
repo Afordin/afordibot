@@ -13,6 +13,7 @@ import type { TwitchBot } from 'infrastructure/irc/twitchBot'
 import type { CronJobs } from 'infrastructure/cronJobs/cronJobs'
 
 import type { DomDomDom } from 'application/domDomDom'
+import type { GetBestMonthClip } from 'application/getBestMonthClip'
 
 export interface Dependencies {
 	// Core
@@ -36,4 +37,5 @@ export interface Dependencies {
 
 	// Use cases
 	domDomDom: DomDomDom
+	getBestMonthClip: GetBestMonthClip
 }

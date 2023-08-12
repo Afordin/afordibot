@@ -20,6 +20,7 @@ import { CronJobs } from 'infrastructure/cronJobs/cronJobs'
 import { config } from 'infrastructure/config'
 
 import { DomDomDom } from 'application/domDomDom'
+import { GetBestMonthClip } from 'application/getBestMonthClip'
 
 import type { Dependencies } from 'types/container'
 
@@ -54,6 +55,7 @@ container.register({
 
 	// Use cases
 	domDomDom: asClass(DomDomDom),
+	getBestMonthClip: asClass(GetBestMonthClip),
 })
 
 export { container }
