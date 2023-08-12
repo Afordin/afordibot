@@ -58,13 +58,15 @@ describe('Instantiate rest helix client', () => {
 	})
 
 	test('getClips method should return expected data', async () => {
+		httpClientMock.post.mockResolvedValue({ access_token: 'test' })
 		httpClientMock.get
 			.mockResolvedValueOnce({ data: [{ url: 'test' }] })
 			.mockResolvedValueOnce({ data: [{ url: 'test' }, { url: 'test' }] })
 
 		expect(await restHelixClient.getClips({})).toEqual([{ url: 'test' }])
 		expect(await restHelixClient.getClips({})).toEqual([{ url: 'test' }, { url: 'test' }])
+		expect(httpClientMock.post).toHaveBeenCalledTimes(2)
 		expect(httpClientMock.get).toHaveBeenCalledTimes(2)
-		expect(utilsMock.urlSearchParams).toHaveBeenCalledTimes(2)
+		expect(utilsMock.urlSearchParams).toHaveBeenCalledTimes(4)
 	})
 })
