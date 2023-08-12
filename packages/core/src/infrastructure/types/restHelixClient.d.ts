@@ -10,7 +10,7 @@ export interface HelixClipParams {
 	id: string
 	started_at: string
 	ended_at: string
-	first: string
+	first: number
 	before: string
 	after: string
 }
