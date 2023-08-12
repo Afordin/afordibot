@@ -22,8 +22,27 @@ export class RestHelixClient {
 
 	public async getClips(params: Partial<HelixClipParams>) {
 		const url = this._utils.urlSearchParams('https://api.twitch.tv/helix/clips', params)
-		const { data } = await this._httpClient.get<{ data: HelixClip[] }>({ url })
+		const options = await this._createClientOptions()
+		const { data } = await this._httpClient.get<{ data: HelixClip[] }>({ url, options })
 		return data
+	}
+
+	public async getUsersData(usernames: string[]) {
+		const chunks = this._createUsernamesChunks(usernames)
+		const promises = chunks.map((chunk) => this._getChunkUsersData(chunk))
+		const usersData = await Promise.all(promises)
+		return usersData.flat()
+	}
+
+	private async _createClientOptions() {
+		const accessToken = await this.getHelixToken()
+		return {
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+				'Client-ID': this._config.helixConfig.clientId,
+				'Content-Type': 'application/json',
+			},
+		}
 	}
 
 	private _createUsernamesChunks(usernames: string[]) {
@@ -41,23 +60,9 @@ export class RestHelixClient {
 	}
 
 	private async _getChunkUsersData(usernames: string[]) {
-		const accessToken = await this.getHelixToken()
 		const url = `https://api.twitch.tv/helix/users?login=${usernames.join('&login=')}`
-		const options = {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-				'Client-ID': this._config.helixConfig.clientId,
-				'Content-Type': 'application/json',
-			},
-		}
+		const options = await this._createClientOptions()
 		const { data } = await this._httpClient.get<{ data: HelixUserData[] }>({ url, options })
 		return data
-	}
-
-	public async getUsersData(usernames: string[]) {
-		const chunks = this._createUsernamesChunks(usernames)
-		const promises = chunks.map((chunk) => this._getChunkUsersData(chunk))
-		const usersData = await Promise.all(promises)
-		return usersData.flat()
 	}
 }
