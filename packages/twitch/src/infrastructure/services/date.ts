@@ -22,10 +22,14 @@ export class DateBuilder {
 	}
 
 	public format(format: string = this.DEFAULT_FORMAT) {
-		return this._date.format(format)
+		const formatted = this._date.format(format)
+		this.now()
+		return formatted
 	}
 
 	public toISOString() {
-		return this._date.toISOString()
+		const formatted = this._date.toISOString()
+		this.now()
+		return formatted
 	}
 }
