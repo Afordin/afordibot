@@ -14,6 +14,7 @@ import { UserGeneratorService } from 'domain/services/userGenerator'
 import { Config } from 'infrastructure/config'
 import { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import { RestHelixClient } from 'infrastructure/services/restHelixClient'
+import { Utils } from 'infrastructure/services/utils'
 
 import { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import { userDocumentParser } from 'infrastructure/persistance/firebase/user/userDocumentParser'
@@ -67,6 +68,7 @@ export class AfordiBot implements Bot {
 			// Infrastructure services
 			httpClient: asClass(AxiosHttpClient),
 			restHelixClient: asClass(RestHelixClient),
+			utils: asClass(Utils),
 
 			// Persistance
 			dbHandler: asClass(FirebaseHandler).singleton(),

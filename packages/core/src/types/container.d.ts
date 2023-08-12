@@ -9,6 +9,7 @@ import type { UserGeneratorService } from 'domain/services/userGenerator'
 import type { Config } from 'infrastructure/config'
 import type { AxiosHttpClient } from 'infrastructure/services/axiosHttpClient'
 import type { RestHelixClient } from 'infrastructure/services/restHelixClient'
+import type { Utils } from 'infrastructure/services/utils'
 
 import type { FirebaseHandler } from 'infrastructure/persistance/firebase/dbHandler'
 import type { UserDocumentParser } from 'infrastructure/types/userRepository'
@@ -41,6 +42,7 @@ export interface Dependencies {
 	// Infrastructure services
 	httpClient: AxiosHttpClient
 	restHelixClient: RestHelixClient
+	utils: Utils
 
 	// Persistance
 	dbHandler: FirebaseHandler
