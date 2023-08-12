@@ -6,6 +6,7 @@ export class CommandService {
 	private channelAflores = /^!(aflores|flores)$/
 
 	private domDomDom = /^!domdomdom(?:\s+.*)?$/
+	private clip = /^!clip(?:\s+.*)?$/
 
 	public isJolin(message: string) {
 		return message.includes('jolin') && !message.includes('jolines')
@@ -29,5 +30,9 @@ export class CommandService {
 
 	public isDomDomDom(message: string) {
 		return this.domDomDom.test(message)
+	}
+
+	public isClip(message: string) {
+		return this.clip.test(message)
 	}
 }
