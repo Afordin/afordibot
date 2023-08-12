@@ -45,7 +45,7 @@ export class User implements UserEntity {
 	}
 
 	private _assertUsername(username: string) {
-		if (typeof username !== 'string' || username.length < 4) {
+		if (typeof username !== 'string' || username.length < 4 || username.length > 25) {
 			throw new InvalidUserError(InvalidUserMessages.INVALID_USERNAME)
 		}
 	}

@@ -47,6 +47,14 @@ describe('Instantiate user entity', () => {
 		}).toThrow()
 	})
 
+	test('should throw an error if username has length more than 25', () => {
+		expect(() => new User({ username: 'aaaaaaaaaaaaaaaaaaaaaaaaaa', jolines: 0, aflores: { total: 0 } })).toThrow()
+		expect(() => {
+			const user = new User(VALID_USER)
+			user.username = 'aaaaaaaaaaaaaaaaaaaaaaaaaa'
+		}).toThrow()
+	})
+
 	// Jolines validation
 	test('should throw an error if jolines is not a number', () => {
 		expect(() => new User({ username: 'afordibot', aflores: { total: 0 } })).toThrow()
