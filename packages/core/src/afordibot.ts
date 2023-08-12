@@ -33,7 +33,7 @@ import { UpdateUsersImages } from 'application/updateUsersImages'
 import type { AwilixContainer } from 'awilix'
 import type { Dependencies } from 'types/container'
 import type { ConfigConstructor } from 'infrastructure/types/config'
-import type { HelixUserData } from 'infrastructure/types/restHelixClient'
+import type { HelixUserData, HelixClipParams, HelixClip } from 'infrastructure/types/restHelixClient'
 import type { Bot, GetAfloresResponse, GetJolinesResponse, IncrementAfloresResponse } from 'types/afordibot'
 
 export class AfordiBot implements Bot {
@@ -90,11 +90,27 @@ export class AfordiBot implements Bot {
 
 	/**
 	 * Gets the access token from Twitch Helix API.
+	 *
+	 * For more information about client credentials grant flow, check the [Twitch API docs](https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/#client-credentials-grant-flow).
+	 *
 	 * @returns The Helix access token.
 	 */
 	public async getHelixToken(): Promise<string> {
 		const restHelixClient = this._container.resolve<RestHelixClient>('restHelixClient')
 		return await restHelixClient.getHelixToken()
+	}
+
+	/**
+	 * Gets the channel clips from Twitch Helix API.
+	 *
+	 * For more information about the params, check the [Twitch API docs](https://dev.twitch.tv/docs/api/reference/#get-clips).
+	 *
+	 * @param params The params to get the clips from.
+	 * @returns The channel clips.
+	 */
+	public async getClips(params: Partial<HelixClipParams>): Promise<HelixClip[]> {
+		const restHelixClient = this._container.resolve<RestHelixClient>('restHelixClient')
+		return await restHelixClient.getClips(params)
 	}
 
 	/**

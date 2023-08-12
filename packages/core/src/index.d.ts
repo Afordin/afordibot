@@ -18,7 +18,7 @@ export type { RankingCollection } from './application/types/resetRanking'
 // Infrastucture
 export type { BaseCollection } from './infrastructure/types/baseRepository'
 export type { FirebaseConfig, HelixConfig } from './infrastructure/types/config'
-export type { HelixUserData } from './infrastructure/types/restHelixClient'
+export type { HelixToken, HelixClipParams, HelixClip, HelixUserData } from './infrastructure/types/restHelixClient'
 
 // Package entry point
 export type { AfordiBot } from './afordibot'
