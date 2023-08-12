@@ -18,3 +18,7 @@ export interface AflorCommand extends BotCommand {
 export interface DomDomDomCommand extends BotCommand {
 	command: string
 }
+
+export interface ClipCommand extends BotCommand {
+	command: string
+}

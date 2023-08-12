@@ -2,7 +2,14 @@ import { AfordiBot } from '@afordibot/core'
 import { config } from 'infrastructure/config'
 
 import type { Dependencies } from 'types/container'
-import type { BotCommand, JolinCommand, JolinesCommand, AflorCommand, DomDomDomCommand } from 'infrastructure/types/bot'
+import type {
+	BotCommand,
+	JolinCommand,
+	JolinesCommand,
+	AflorCommand,
+	DomDomDomCommand,
+	ClipCommand,
+} from 'infrastructure/types/bot'
 
 export class TwitchBot {
 	private _afordibot: AfordiBot
@@ -11,6 +18,7 @@ export class TwitchBot {
 	private _textParserService: Dependencies['textParserService']
 	private _timeoutService: Dependencies['timeoutService']
 	private _domDomDom: Dependencies['domDomDom']
+	private _getBestMonthClip: Dependencies['getBestMonthClip']
 
 	constructor({
 		afordibot,
@@ -19,9 +27,16 @@ export class TwitchBot {
 		textParserService,
 		timeoutService,
 		domDomDom,
+		getBestMonthClip,
 	}: Pick<
 		Dependencies,
-		'afordibot' | 'TmiClient' | 'commandService' | 'textParserService' | 'timeoutService' | 'domDomDom'
+		| 'afordibot'
+		| 'TmiClient'
+		| 'commandService'
+		| 'textParserService'
+		| 'timeoutService'
+		| 'domDomDom'
+		| 'getBestMonthClip'
 	>) {
 		this._afordibot = afordibot
 		this._client = new TmiClient(config.botConfig)
@@ -29,6 +44,7 @@ export class TwitchBot {
 		this._textParserService = textParserService
 		this._timeoutService = timeoutService
 		this._domDomDom = domDomDom
+		this._getBestMonthClip = getBestMonthClip
 	}
 
 	private async _isJolin(command: JolinCommand) {
@@ -65,6 +81,13 @@ export class TwitchBot {
 		}
 	}
 
+	private async _isBestMonthClip({ channelName, command }: ClipCommand) {
+		if (!this._timeoutService.isTimeout({ channelName, command })) {
+			const response = await this._getBestMonthClip.execute({ channelName })
+			this._client.say(`#${channelName}`, response.getMessage())
+		}
+	}
+
 	private _onConnected() {
 		this._client.on('connected', () => {
 			console.log('[+] Bot connected')
@@ -78,14 +101,15 @@ export class TwitchBot {
 				const username = ctx.username!
 				const channelName = this._textParserService.cleanChannel(channel)
 				const message = this._textParserService.cleanMessage(dirtyMessage)
+				const command = this._textParserService.parseCommandName(message)
 
 				if (this._commandService.isJolin(message)) await this._isJolin({ username, channelName })
 				else if (this._commandService.isChannelJolines(message)) await this._isChannelJolines({ channelName })
 				else if (this._commandService.isChannelAflores(message)) await this._isChannelAflores({ channelName })
 				else if (this._commandService.isUserJolines(message)) await this._isUserJolines({ channelName, message })
 				else if (this._commandService.isUserAflor(message)) await this._isUserAflor({ username, channelName, message })
-				else if (this._commandService.isDomDomDom(message))
-					await this._isDomDomDom({ channelName, command: 'domdomdom' })
+				else if (this._commandService.isDomDomDom(message)) await this._isDomDomDom({ channelName, command })
+				else if (this._commandService.isClip(message)) await this._isBestMonthClip({ channelName, command })
 			} catch (error) {
 				console.error(error)
 			}
