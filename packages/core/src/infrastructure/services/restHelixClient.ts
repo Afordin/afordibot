@@ -1,19 +1,29 @@
-import type { HelixToken, HelixUserData } from 'infrastructure/types/restHelixClient'
+import type { HelixToken, HelixClipParams, HelixClip, HelixUserData } from 'infrastructure/types/restHelixClient'
 import type { Dependencies } from 'types/container'
 
 export class RestHelixClient {
 	private _config: Dependencies['config']
 	private _httpClient: Dependencies['httpClient']
+	private _utils: Dependencies['utils']
 
-	constructor({ config, httpClient }: Pick<Dependencies, 'config' | 'httpClient'>) {
+	constructor({ config, httpClient, utils }: Pick<Dependencies, 'config' | 'httpClient' | 'utils'>) {
 		this._config = config
 		this._httpClient = httpClient
+		this._utils = utils
 	}
 
 	public async getHelixToken() {
-		const url = `https://id.twitch.tv/oauth2/token?client_id=${this._config.helixConfig.clientId}&client_secret=${this._config.helixConfig.clientSecret}&grant_type=client_credentials`
+		const { clientId, clientSecret, grantType } = this._config.helixConfig
+		const params = { client_id: clientId, client_secret: clientSecret, grant_type: grantType }
+		const url = this._utils.urlSearchParams('https://id.twitch.tv/oauth2/token', params)
 		const token = await this._httpClient.post<HelixToken>({ url })
 		return token.access_token
+	}
+
+	public async getClips(params: Partial<HelixClipParams>) {
+		const url = this._utils.urlSearchParams('https://api.twitch.tv/helix/clips', params)
+		const { data } = await this._httpClient.get<{ data: HelixClip[] }>({ url })
+		return data
 	}
 
 	private _createUsernamesChunks(usernames: string[]) {
