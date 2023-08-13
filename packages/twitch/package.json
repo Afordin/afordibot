@@ -29,12 +29,10 @@
     "tmi.js": "1.8.5"
   },
   "devDependencies": {
-    "@types/node": "20.4.1",
     "@types/cron": "2.0.1",
     "@types/luxon": "3.3.0",
     "@types/module-alias": "2.0.1",
     "@types/tmi.js": "1.8.3",
-    "typescript": "5.1.6",
-    "vitest": "0.33.0"
+    "typescript": "5.1.6"
   }
 }
