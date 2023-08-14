@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.events.workflow_run.name == 'push' && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.workflow_run.conclusion == 'success' }}
     env:
       RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
     strategy:
@@ -31,6 +31,3 @@ jobs:
         run: railway up -s $RAILWAY_SERVICE_ID -e production
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
-
-
