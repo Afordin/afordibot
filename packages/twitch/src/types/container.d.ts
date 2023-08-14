@@ -6,8 +6,9 @@ import type dayjs from 'dayjs'
 import type { CronService } from 'infrastructure/services/cron'
 import type { CommandService } from 'infrastructure/services/command'
 import type { TextParserService } from 'infrastructure/services/textParser'
-import type { TimeoutService } from 'src/infrastructure/services/timeout'
-import type { DateBuilder } from 'src/infrastructure/services/date'
+import type { TimeoutService } from 'infrastructure/services/timeout'
+import type { DateBuilder } from 'infrastructure/services/date'
+import type { Utils } from 'infrastructure/services/utils'
 
 import type { TwitchBot } from 'infrastructure/irc/twitchBot'
 import type { CronJobs } from 'infrastructure/cronJobs/cronJobs'
@@ -30,6 +31,7 @@ export interface Dependencies {
 	textParserService: TextParserService
 	timeoutService: TimeoutService
 	dateBuilder: DateBuilder
+	utils: Utils
 
 	// Entry points
 	twitchBot: TwitchBot

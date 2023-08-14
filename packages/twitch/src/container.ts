@@ -12,8 +12,9 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { CronService } from 'infrastructure/services/cron'
 import { CommandService } from 'infrastructure/services/command'
 import { TextParserService } from 'infrastructure/services/textParser'
-import { TimeoutService } from 'src/infrastructure/services/timeout'
-import { DateBuilder } from 'src/infrastructure/services/date'
+import { TimeoutService } from 'infrastructure/services/timeout'
+import { DateBuilder } from 'infrastructure/services/date'
+import { Utils } from 'infrastructure/services/utils'
 
 import { TwitchBot } from 'infrastructure/irc/twitchBot'
 import { CronJobs } from 'infrastructure/cronJobs/cronJobs'
@@ -48,6 +49,7 @@ container.register({
 	textParserService: asClass(TextParserService),
 	timeoutService: asClass(TimeoutService).singleton(),
 	dateBuilder: asClass(DateBuilder),
+	utils: asClass(Utils),
 
 	// Entry points
 	twitchBot: asClass(TwitchBot).singleton(),
