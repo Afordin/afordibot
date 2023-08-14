@@ -3,4 +3,4 @@
 - [x] Add railway cli deployment to github actions
 - [x] Remove redundant dependencies and typescript config from twitch package
 - [x] Remove node types and vitest deps from twitch package
-- [ ] Move choice logic to infrastructure service
+- [x] Move choice logic to infrastructure service
