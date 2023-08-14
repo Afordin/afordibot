@@ -1,0 +1,36 @@
+name: deploy-twitch
+
+on:
+  workflow_run:
+    workflows: ['unit-tests-twitch']
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.events.workflow_run.name == 'push' && github.event.workflow_run.conclusion == 'success' }}
+    env:
+      RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install railway
+        run: npm i -g @railway/cli
+
+      - name: Deploy railway
+        run: railway up -s $RAILWAY_SERVICE_ID -e production
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+
+
