@@ -11,6 +11,7 @@ on:
       - main
     paths:
       - 'packages/discord/**'
+  workflow_dispatch:
 
 jobs:
   build:
