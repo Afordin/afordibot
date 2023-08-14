@@ -1,0 +1,34 @@
+{
+  "name": "@afordibot/core",
+  "version": "0.0.0-beta.7",
+  "private": false,
+  "description": "Core package for managing user interactions with the AfordiBot across different platforms.",
+  "author": "Luciano Morales",
+  "license": "GPL-3.0-or-later",
+  "packageManager": "pnpm@8.6.6",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist && tsup",
+    "test": "cross-env NODE_ENV=test vitest --run",
+    "test:watch": "cross-env NODE_ENV=test vitest --watch"
+  },
+  "dependencies": {
+    "awilix": "8.0.1",
+    "axios": "1.4.0",
+    "dayjs": "1.11.9",
+    "firebase-admin": "11.9.0"
+  },
+  "devDependencies": {
+    "cross-env": "7.0.3",
+    "dotenv": "16.3.1",
+    "tsup": "7.1.0"
+  }
+}

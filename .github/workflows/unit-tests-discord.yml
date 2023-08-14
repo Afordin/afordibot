@@ -1,0 +1,45 @@
+name: unit-tests-discord
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/discord/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/discord/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install packages
+        run: pnpm install --no-frozen-lockfile
+      - name: Run linter
+        run: pnpm lint
+      - name: Run core tests
+        run: pnpm --filter @afordibot/core test
+      - name: Run core build
+        run: pnpm --filter @afordibot/core build
+      - name: Run tests
+        run: pnpm --filter @afordibot/discord test
+      - name: Run build
+        run: pnpm --filter @afordibot/discord build

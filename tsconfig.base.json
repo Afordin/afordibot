@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@afordibot/core": ["./packages/core/src"]
+    },
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "skipLibCheck": false,
+    "isolatedModules": true,
+    "outDir": "./dist"
+  },
+  "exclude": [
+    "./node_modules/**/*",
+    "./src/tests/**/*",
+    "./dist/**/*"
+  ]
+}

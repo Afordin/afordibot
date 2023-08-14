@@ -1,0 +1,6 @@
+- [x] Add firebase admin to dependency injector container
+- [x] Add max username length validation to user entity
+- [x] Add railway cli deployment to github actions
+- [x] Remove redundant dependencies and typescript config from twitch package
+- [x] Remove node types and vitest deps from twitch package
+- [x] Move choice logic to infrastructure service
